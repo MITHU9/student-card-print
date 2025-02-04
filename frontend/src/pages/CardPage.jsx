@@ -28,7 +28,7 @@ const CardPage = () => {
               </div>
             </div>
             <div className="ml-4 text-sm">
-              <h2 className="uppercase text-xl font-bold underline mb-1">
+              <h2 className="uppercase text-lg font-bold underline mb-1">
                 Student Identity Card
               </h2>
               <div className="mb-2">
@@ -44,19 +44,23 @@ const CardPage = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold">Roll No</p>
-                  <p className="ml-9.5 font-semibold">: &nbsp;{data?.Roll}</p>
+                  <p className="ml-[43px] font-semibold">
+                    : &nbsp;{data?.Roll}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold">Session</p>
-                  <p className="ml-9 font-semibold">: &nbsp;2022-2023</p>
+                  <p className="ml-[42px] font-semibold">: &nbsp;2022-2023</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-red-700">Blood Group</p>
-                  <p className="font-semibold">: &nbsp;O+</p>
+                  <p className="font-semibold ml-[3px]">: &nbsp;O+</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold">Emergency</p>
-                  <p className="ml-3 font-semibold">: &nbsp;+8801307394713</p>
+                  <p className="ml-[16px] font-semibold">
+                    : &nbsp;+8801307394713
+                  </p>
                 </div>
               </div>
             </div>

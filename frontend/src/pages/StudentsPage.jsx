@@ -25,7 +25,7 @@ const AllStudents = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(student);
+  //console.log(student);
 
   return (
     <div className="lg:flex gap-3">
@@ -42,12 +42,12 @@ const AllStudents = () => {
             <Search className="absolute right-2 top-2.5" />
           </div>
           <div>
-            <button
+            <Link
+              to="/print-backside"
               className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700"
-              //onClick={() => window.print()}
             >
               Print Backside
-            </button>
+            </Link>
           </div>
         </div>
         <div className="overflow-auto overflow-y-auto h-[85vh] p-4">
@@ -99,33 +99,36 @@ const AllStudents = () => {
       <div className="mt-5 p-2 w-full max-w-2xl border">
         <div className="text-xl font-semibold">
           <h2>
-            Applicant ID <span className="ml-8">:{student?.applicant_id}</span>
+            Applicant ID{" "}
+            <span className="ml-8">:&nbsp;{student?.applicant_id}</span>
           </h2>
           <h2>
-            Name <span className="ml-[103px]">:{student?.Name}</span>
+            Name <span className="ml-[103px]">:&nbsp;{student?.Name}</span>
           </h2>
           <h2>
             Department{" "}
-            <span className="ml-[38px]">:{student?.Current_Department}</span>
+            <span className="ml-[38px]">
+              :&nbsp;{student?.Current_Department}
+            </span>
           </h2>
           <h2>
-            Roll No <span className="ml-[86px]">:{student?.Roll}</span>
+            Roll No <span className="ml-[87px]">:&nbsp;{student?.Roll}</span>
           </h2>
           <h2>
             Registration
-            <span className="ml-[45px]">:{student?.Registration}</span>
+            <span className="ml-[45px]">:&nbsp;{student?.Registration}</span>
           </h2>
           <h2>
             Designation
-            {student && <span className="ml-[45px]">:Student</span>}
+            {student && <span className="ml-[45px]">:&nbsp;Student</span>}
           </h2>
           <h2>
             Session
-            {student && <span className="ml-[90px]">:2022-2023</span>}
+            {student && <span className="ml-[92px]">:&nbsp;2022-2023</span>}
           </h2>
           <h2>
             Blood Group
-            {student && <span className="ml-[65px]">:A+</span>}
+            {student && <span className="ml-[36px]">:&nbsp;A+</span>}
           </h2>
         </div>
         <div className="flex lg:h-28 justify-between mt-4 px-4">

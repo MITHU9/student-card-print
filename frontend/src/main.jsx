@@ -3,8 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import AllStudents from "./pages/CardPage.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AllStudents from "./pages/StudentsPage.jsx";
+import CardPage from "./pages/CardPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,12 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <div>about</div>,
+  },
+  {
+    path: "/print-preview/:id",
+    element: <CardPage />,
+    loader: async ({ params }) =>
+      fetch(`http://localhost:5000/print-preview/${params.id}`),
   },
 ]);
 

@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 
@@ -64,6 +64,17 @@ async function run() {
       const totalStudents = await studentCollection.estimatedDocumentCount();
 
       res.json(totalStudents);
+    });
+
+    //get student by id
+    app.get("/print-preview/:id", async (req, res) => {
+      const id = req.params.id;
+
+      const student = await studentCollection.findOne({
+        _id: new ObjectId(id),
+      });
+
+      res.json(student);
     });
 
     await client.db("admin").command({ ping: 1 });

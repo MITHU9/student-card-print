@@ -1,92 +1,73 @@
-import { Search } from "lucide-react";
-import useAllStudents from "../hooks/useAllStudents";
-import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
-const AllStudents = () => {
-  const [query, setQuery] = useState("");
-
-  const [data, loading, refetch] = useAllStudents(query);
+const CardPage = () => {
+  const data = useLoaderData();
 
   //console.log(data);
 
-  useEffect(() => {
-    refetch();
-  }, [query]);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <div className="w-full max-w-7xl p-4">
-      <div className=" rounded-lg shadow-lg">
-        <div className="flex items-center gap-4 my-2">
-          <div className="my-2 relative w-56">
-            <input
-              className="w-full p-2 border border-gray-300 rounded outline-none "
-              type="text"
-              placeholder="Search student by roll...."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search className="absolute right-2 top-2.5" />
+    <div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-200 ">
+        <div className="bg-white w-[600px] shadow-xl border border-gray-300">
+          <div className="bg-[#CCBDAD] text-center flex items-center justify-center py-2 px-3">
+            <img src="/PUST_Logo.svg" alt="logo" className="size-10" />
+            <h2 className="text-lg py-3 font-bold text-red-700">
+              PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
+            </h2>
           </div>
-          <div>
-            <button
-              className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700"
-              //onClick={() => window.print()}
-            >
-              Print Backside
-            </button>
+          <div className="flex px-3 bg-[#FFF5E1] items-center pb-5 pt-1">
+            <div>
+              <img
+                src={data?.picture}
+                alt="Student"
+                className="w-24 h-24 rounded-lg border border-gray-400"
+              />
+              <div className="mt-6">
+                <hr />
+                <p className="text-xs">Signature of Student</p>
+              </div>
+            </div>
+            <div className="ml-4 text-sm">
+              <h2 className="uppercase text-xl font-bold underline mb-1">
+                Student Identity Card
+              </h2>
+              <div className="mb-2">
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Name</p>
+                  <p className="ml-12 font-semibold">: &nbsp;{data?.Name}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Department</p>
+                  <p className="ml-2 font-semibold">
+                    : &nbsp;{data?.Current_Department}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Roll No</p>
+                  <p className="ml-9.5 font-semibold">: &nbsp;{data?.Roll}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Session</p>
+                  <p className="ml-9 font-semibold">: &nbsp;2022-2023</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold text-red-700">Blood Group</p>
+                  <p className="font-semibold">: &nbsp;O+</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <p className="font-semibold">Emergency</p>
+                  <p className="ml-3 font-semibold">: &nbsp;+8801307394713</p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="overflow-auto overflow-y-auto h-[80vh] p-4">
-          <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
-            <thead>
-              <tr className="bg-pink-800 text-gray-300 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left">SL</th>
-                <th className="py-3 px-6 text-left">Name</th>
-                <th className="py-3 px-6 text-left">Gender</th>
-                <th className="py-3 px-6 text-left">RollNo.</th>
-                <th className="py-3 px-6 text-left">Department</th>
-                <th className="py-3 px-6 text-left">Registration</th>
-                <th className="py-3 px-6 text-left">Photo</th>
-              </tr>
-            </thead>
-            <tbody className="text-gray-700 text-sm font-light">
-              {data?.map((applicant) => (
-                <tr
-                  key={applicant.applicant_id}
-                  className="border-b border-gray-200 hover:bg-gray-100"
-                >
-                  <td className="py-3 px-6 text-left">{applicant.SL}</td>
-                  <td className="py-3 px-6 text-left font-medium">
-                    {applicant.Name}
-                  </td>
-                  <td className="py-3 px-6 text-left">{applicant.Gender}</td>
-                  <td className="py-3 px-6 text-left">{applicant.Roll}</td>
-                  <td className="py-3 px-6 text-left">
-                    {applicant.Current_Department}
-                  </td>
-
-                  <td className="py-3 px-6 text-left">
-                    {applicant.Registration}
-                  </td>
-                  <td className="py-3 px-6">
-                    <img
-                      src={applicant.picture}
-                      alt={applicant.Name}
-                      className="w-10 h-10 rounded-full border"
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <div className="bg-[#CCBDAD] px-3 py-4 text-left text-xs">
+            <hr className="w-28" />
+            <p>Signature of Provost</p>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default AllStudents;
+export default CardPage;

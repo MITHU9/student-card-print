@@ -6,8 +6,8 @@ function useAllStudents(query) {
     queryKey: ["students"],
     queryFn: async () => {
       const url = query
-        ? `http://localhost:5000/students?query=${query}`
-        : `http://localhost:5000/students`;
+        ? `https://library-card-backend.vercel.app/students?query=${query}`
+        : `https://library-card-backend.vercel.app/students`;
 
       const res = await axios.get(url);
       return res.data;

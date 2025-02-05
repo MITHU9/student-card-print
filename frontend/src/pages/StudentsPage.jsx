@@ -50,8 +50,8 @@ const AllStudents = () => {
             </Link>
           </div>
         </div>
-        <div className="overflow-auto overflow-y-auto h-[85vh] p-4">
-          <table className="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
+        <div className="overflow-x-auto overflow-y-auto h-[85vh] lg:w-5xl p-4">
+          <table className="min-w-full bg-white border border-gray-300 overflow-x-scroll  shadow-md rounded-lg">
             <thead>
               <tr className="bg-pink-800 text-gray-300 uppercase text-sm leading-normal">
                 <th className="py-3 px-6 text-left">SL</th>
@@ -60,6 +60,8 @@ const AllStudents = () => {
                 <th className="py-3 px-6 text-left">RollNo.</th>
                 <th className="py-3 px-6 text-left">Department</th>
                 <th className="py-3 px-6 text-left">Registration</th>
+                <th className="py-3 px-6 text-left">PHONE</th>
+                <th className="py-3 px-6 text-left">BLOOD_GROUP</th>
                 <th className="py-3 px-6 text-left">Photo</th>
               </tr>
             </thead>
@@ -83,6 +85,10 @@ const AllStudents = () => {
                   <td className="py-3 px-6 text-left">
                     {applicant.Registration}
                   </td>
+                  <td className="py-3 px-6 text-left">{applicant.Mobile}</td>
+                  <td className="py-3 px-6 text-left">
+                    {applicant.blood_group}
+                  </td>
                   <td className="py-3 px-6">
                     <img
                       src={applicant.picture}
@@ -96,7 +102,7 @@ const AllStudents = () => {
           </table>
         </div>
       </div>
-      <div className="mt-5 p-2 w-full max-w-2xl border">
+      <div className="mt-5 p-2 w-full min-w-xl border">
         <div className="text-xl font-semibold">
           <h2>
             Applicant ID{" "}
@@ -131,7 +137,7 @@ const AllStudents = () => {
             {student && <span className="ml-[36px]">:&nbsp;A+</span>}
           </h2>
         </div>
-        <div className="flex lg:h-28 justify-between mt-4 px-4">
+        <div className="flex lg:h-52 justify-between mt-4 px-4">
           <div>
             <h2 className="border text-center w-40 font-semibold px-8 py-1 bg-green-600">
               Photo

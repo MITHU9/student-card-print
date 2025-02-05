@@ -26,7 +26,9 @@ const router = createBrowserRouter([
     path: "/print-preview/:id",
     element: <CardPage />,
     loader: async ({ params }) =>
-      fetch(`http://localhost:5000/print-preview/${params.id}`),
+      fetch(
+        `https://library-card-backend.vercel.app/print-preview/${params.id}`
+      ),
   },
   {
     path: "/print-backside",

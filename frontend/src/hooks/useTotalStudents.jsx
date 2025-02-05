@@ -5,7 +5,9 @@ function useTotalStudents() {
   const { data, refetch } = useQuery({
     queryKey: ["total-students"],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:5000/total-students`);
+      const res = await axios.get(
+        `https://library-card-backend.vercel.app/total-students`
+      );
       return res.data;
     },
   });

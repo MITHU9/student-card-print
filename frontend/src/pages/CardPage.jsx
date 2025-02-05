@@ -9,13 +9,13 @@ const CardPage = () => {
     <div>
       <div className="flex items-center justify-center min-h-screen bg-gray-200 ">
         <div className="bg-white w-[600px] shadow-xl border border-gray-300">
-          <div className="bg-[#CCBDAD] text-center flex items-center justify-center py-2 px-3">
+          <div className="bg-[#CEB8B0] text-center flex items-center justify-center py-2 px-3">
             <img src="/PUST_Logo.svg" alt="logo" className="size-10" />
             <h2 className="text-lg py-3 font-bold text-red-700">
               PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
             </h2>
           </div>
-          <div className="flex px-3 bg-[#FFF5E1] items-center pb-5 pt-1">
+          <div className="flex px-3 bg-[#F7F0EE] items-center pb-5 pt-1">
             <div>
               <img
                 src={data?.picture}
@@ -43,8 +43,8 @@ const CardPage = () => {
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="font-semibold">Roll No</p>
-                  <p className="ml-[43px] font-semibold">
+                  <p className="font-semibold">Roll No.</p>
+                  <p className="ml-[39px] font-semibold">
                     : &nbsp;{data?.Roll}
                   </p>
                 </div>
@@ -54,18 +54,20 @@ const CardPage = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold text-red-700">Blood Group</p>
-                  <p className="font-semibold ml-[3px]">: &nbsp;O+</p>
+                  <p className="font-semibold text-red-700 ml-[3px]">
+                    : &nbsp;{data?.blood_group}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <p className="font-semibold">Emergency</p>
                   <p className="ml-[16px] font-semibold">
-                    : &nbsp;+8801307394713
+                    : &nbsp;+880{data?.Mobile}
                   </p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="bg-[#CCBDAD] px-3 py-4 text-left text-xs">
+          <div className="bg-[#CEB8B0] px-3 py-4 text-left text-xs">
             <hr className="w-28" />
             <p>Signature of Provost</p>
           </div>

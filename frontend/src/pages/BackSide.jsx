@@ -36,13 +36,12 @@ import QRCode from "react-qr-code";
 import { useParams } from "react-router-dom";
 export default function BackSIde() {
   const { id } = useParams();
-  const [student, setStudent] = useState(null); // Fix: Use null instead of an array
-  console.log(id);
+  const [student, setStudent] = useState(null);
   useEffect(() => {
     const fetchStudent = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/print-preview/${id}`
+          `https://library-card-backend.vercel.app/print-preview/${id}`
         ); // Fix: Corrected API route
         if (!response.ok) throw new Error("Student not found");
         const data = await response.json();
@@ -54,7 +53,7 @@ export default function BackSIde() {
     fetchStudent();
   }, [id]);
 
-  const studenturl = `https://library-card-backend.vercel.app/print-preview/${id}`;
+  const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
   return (
     <div className="flex justify-center items-center h-screen">
       {/* {JSON.stringify(student)} */}

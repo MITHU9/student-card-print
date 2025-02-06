@@ -39,7 +39,6 @@ const AllStudents = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            {JSON.stringify(query)}
             <Search className="absolute right-2 top-2.5" />
           </div>
           <div>

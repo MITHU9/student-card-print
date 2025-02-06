@@ -7,6 +7,7 @@ import "./index.css";
 import BackSide from "./pages/BackSide.jsx";
 import CardPage from "./pages/CardPage.jsx";
 import AllStudents from "./pages/StudentsPage.jsx";
+import StudentDetails from "./pages/StudentDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -19,10 +20,6 @@ const router = createBrowserRouter([
     element: <AllStudents />,
   },
   {
-    path: "/register",
-    element: <div>about</div>,
-  },
-  {
     path: "/print-preview/:id",
     element: <CardPage />,
     loader: async ({ params }) =>
@@ -33,6 +30,14 @@ const router = createBrowserRouter([
   {
     path: "/print-backside/:id",
     element: <BackSide />,
+  },
+  {
+    path: "/student-details/:id",
+    element: <StudentDetails />,
+    loader: async ({ params }) =>
+      fetch(
+        `https://library-card-backend.vercel.app/print-preview/${params.id}`
+      ),
   },
 ]);
 

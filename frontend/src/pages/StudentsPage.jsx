@@ -39,12 +39,12 @@ const AllStudents = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
-            {/* {JSON.stringify(query)} */}
+            {JSON.stringify(query)}
             <Search className="absolute right-2 top-2.5" />
           </div>
           <div>
             <Link
-              to={`/print-backside`}
+              to={`/print-backside/${student?._id}`}
               className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700"
             >
               Print Backside

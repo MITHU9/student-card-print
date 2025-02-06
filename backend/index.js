@@ -2,7 +2,7 @@ const dotenv = require("dotenv");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
-
+const QRCode = require("qrcode");
 dotenv.config();
 const app = express();
 
@@ -72,11 +72,10 @@ async function run() {
     //get student by id
     app.get("/print-preview/:id", async (req, res) => {
       const id = req.params.id;
-
+      console.log(id);
       const student = await studentCollection.findOne({
         _id: new ObjectId(id),
       });
-
       res.json(student);
     });
 

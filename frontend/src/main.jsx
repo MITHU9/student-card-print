@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       ),
   },
   {
-    path: "/print-backside",
+    path: "/print-backside/:id",
     element: <BackSide />,
   },
 ]);

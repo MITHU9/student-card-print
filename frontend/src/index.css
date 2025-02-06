@@ -1,1 +1,46 @@
 @import "tailwindcss";
+@media print {
+  @page {
+    size: 14.7cm 8.38cm;
+    margin: 0;
+  }
+  body {
+    /* visibility: hidden; */
+    /* display: none; */
+    -webkit-print-color-adjust: exact !important; /* Ensures accurate colors in WebKit browsers */
+    print-color-adjust: exact !important; /* Ensures accurate colors in other browsers */
+  }
+
+  .print-area,
+  .print-area * {
+    visibility: visible;
+  }
+  .print-area {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%);
+    width: 550px !important;
+  }
+
+  /* Fix background colors for the first card */
+  .bg-[#CEB8B0],
+  .bg-[#F7F0EE] {
+    background-color: #ceb8b0 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Fix background colors for the second card */
+  .bg-[#A2C2E0],
+  .bg-[#F1F7FB] {
+    background-color: #a2c2e0 !important;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Fix background colors for the third card */
+  .bg-[#E0D2A2],
+  .bg-[#F9F4D0] {
+    background-color: #e0d2a2 !important;
+    -webkit-print-color-adjust: exact;
+  }
+}

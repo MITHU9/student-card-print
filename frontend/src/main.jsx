@@ -1,12 +1,12 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./index.css";
-import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import AllStudents from "./pages/StudentsPage.jsx";
-import CardPage from "./pages/CardPage.jsx";
+import App from "./App.jsx";
+import "./index.css";
 import BackSide from "./pages/BackSide.jsx";
+import CardPage from "./pages/CardPage.jsx";
+import AllStudents from "./pages/StudentsPage.jsx";
 
 const router = createBrowserRouter([
   {

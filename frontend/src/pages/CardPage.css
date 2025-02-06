@@ -1,0 +1,9 @@
+@media print {
+  button {
+    /* display: none !important; Hide buttons */
+  }
+  body {
+    -webkit-print-color-adjust: exact; /* Ensure color accuracy */
+    print-color-adjust: exact;
+  }
+}

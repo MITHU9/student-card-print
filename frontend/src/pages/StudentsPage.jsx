@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
-import useAllStudents from "../hooks/useAllStudents";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAllStudents from "../hooks/useAllStudents";
 
 const AllStudents = () => {
   const [query, setQuery] = useState("");
@@ -39,11 +39,12 @@ const AllStudents = () => {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
+            {/* {JSON.stringify(query)} */}
             <Search className="absolute right-2 top-2.5" />
           </div>
           <div>
             <Link
-              to="/print-backside"
+              to={`/print-backside`}
               className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700"
             >
               Print Backside

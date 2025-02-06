@@ -53,6 +53,8 @@ export default function BackSIde() {
     fetchStudent();
   }, [id]);
 
+  //console.log(id);
+
   const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
   return (
     <div className="flex justify-center items-center h-screen">

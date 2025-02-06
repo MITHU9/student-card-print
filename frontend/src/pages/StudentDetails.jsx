@@ -3,30 +3,6 @@ import { useLoaderData } from "react-router-dom";
 const StudentDetails = () => {
   const data = useLoaderData();
 
-  const user = {
-    admission_roll: 146990,
-    current_department: "Pharmacy",
-    dept_code: 13,
-    father_name: "MD AZIZUR RAHMAN",
-    father_occupation: "ARMY JUNIOUR COMMISSOUND OFFICER (Retired)",
-    gender: "FEMALE",
-    mother_name: "SHAMSUNNAHAR BEGUM",
-    mother_occupation: "Housewife",
-    mobile: "1780015335",
-    name: "MST. TASNIM JAHAN",
-    registration: 1135426,
-    roll: "241302",
-    sl: 2,
-    applicant_id: 1261161,
-    blood_group: "AB+",
-    family_income: 240000,
-    nationality: "BANGLADESHI",
-    phone: "1822072270",
-    picture:
-      "https://d3ik3xy0ts3wqq.cloudfront.net/public/uploads/1261161-1707747035.jpg",
-    religion: "ISLAM",
-  };
-
   console.log(data);
 
   return (
@@ -34,62 +10,62 @@ const StudentDetails = () => {
       <div className="bg-white shadow-lg rounded-2xl p-6 max-w-lg w-full">
         <div className="flex flex-col items-center">
           <img
-            src={user.picture}
-            alt={user.name}
+            src={data?.picture}
+            alt={data?.Name}
             className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg"
           />
-          <h2 className="text-xl font-semibold mt-4">{user.name}</h2>
+          <h2 className="text-xl font-semibold mt-4">{data?.Name}</h2>
           <p className="text-gray-600">
-            {user.current_department} (Dept: {user.dept_code})
+            {data?.Current_Department} (Dept: {data?.Dept?.Code})
           </p>
           <p className="text-gray-600">
-            Roll: {user.roll} | Reg: {user.registration}
+            Roll: {data?.Roll} | Reg: {data?.Registration}
           </p>
         </div>
         <div className="mt-4 space-y-2 text-sm text-gray-700">
           <p>
-            <span className="font-semibold">Gender:</span> {user.gender}
+            <span className="font-semibold">Gender:</span> {data?.Gender}
           </p>
           <p>
             <span className="font-semibold">Blood Group:</span>{" "}
-            {user.blood_group}
+            {data?.blood_group}
           </p>
           <p>
             <span className="font-semibold">Nationality:</span>{" "}
-            {user.nationality}
+            {data?.nationality}
           </p>
           <p>
-            <span className="font-semibold">Religion:</span> {user.religion}
+            <span className="font-semibold">Religion:</span> {data?.religion}
           </p>
           <p>
             <span className="font-semibold">Father&apos;s Name:</span>{" "}
-            {user.father_name}
+            {data?.F_Name}
           </p>
           <p>
             <span className="font-semibold">Father&apos;s Occupation:</span>{" "}
-            {user.father_occupation}
+            {data?.F_Occupation}
           </p>
           <p>
             <span className="font-semibold">Mother&apos;s Name:</span>{" "}
-            {user.mother_name}
+            {data?.M_Name}
           </p>
           <p>
             <span className="font-semibold">Mother&apos;s Occupation:</span>{" "}
-            {user.mother_occupation}
+            {data?.M_occupation}
           </p>
           <p>
             <span className="font-semibold">Family Income:</span>{" "}
-            {user.family_income} BDT
+            {data?.family_income} BDT
           </p>
           <p>
-            <span className="font-semibold">Mobile:</span> {user.mobile}
+            <span className="font-semibold">Mobile:</span> 0{data?.Mobile}
           </p>
           <p>
-            <span className="font-semibold">Phone:</span> {user.phone}
+            <span className="font-semibold">Phone:</span> 0{data?.phone}
           </p>
           <p>
             <span className="font-semibold">Admission Roll:</span>{" "}
-            {user.admission_roll}
+            {data?.Admission_roll}
           </p>
         </div>
       </div>

@@ -129,15 +129,23 @@ const AllStudents = () => {
             {student && <span className="ml-[45px]">:&nbsp;Student</span>}
           </h2>
           <h2>
+            Mobile
+            {student && (
+              <span className="ml-[97px]">:&nbsp;{student.Mobile}</span>
+            )}
+          </h2>
+          <h2>
             Session
             {student && <span className="ml-[92px]">:&nbsp;2022-2023</span>}
           </h2>
           <h2>
             Blood Group
-            {student && <span className="ml-[36px]">:&nbsp;A+</span>}
+            {student && (
+              <span className="ml-[36px]">:&nbsp;{student.blood_group}</span>
+            )}
           </h2>
         </div>
-        <div className="flex lg:h-52 justify-between mt-4 px-4">
+        <div className="flex lg:h-52 mt-8 justify-between px-4">
           <div>
             <h2 className="border text-center w-40 font-semibold px-8 py-1 bg-green-600">
               Photo

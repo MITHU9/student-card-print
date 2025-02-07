@@ -2,6 +2,7 @@
 @media print {
   @page {
     size: 14.7cm 8.38cm;
+    /* size: 85.5mm 54mm.5; */
     margin: 0;
   }
   body {
@@ -21,6 +22,9 @@
     top: 0;
     transform: translateX(-50%);
     width: 550px !important;
+  }
+  button {
+    display: none;
   }
 
   /* Fix background colors for the first card */

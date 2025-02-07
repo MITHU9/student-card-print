@@ -53,13 +53,17 @@ export default function BackSIde() {
     fetchStudent();
   }, [id]);
 
+  const handlePrint = () => {
+    window.print();
+  };
+
   //console.log(id);
 
   const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex main justify-center mt-12 ">
       {/* {JSON.stringify(student)} */}
-      <div className="bg-[#CEB8B0] w-[600px] p-6 shadow-lg text-center">
+      <div className="bg-[#CEB8B0] w-[600px] px-6 py-[15.3px] shadow-lg text-center">
         <p className="text-red-900 font-bold">Issue date : 26 October, 2024</p>
         <p className="text-gray-900 font-bold">Validity for : 5 Years</p>
         {/* <div className="flex justify-center items-center my-4 border border-dashed size-[90px] bg-white mx-auto p-1">
@@ -90,6 +94,27 @@ export default function BackSIde() {
           </p>
         </div>
       </div>
+      <div>
+        <button
+          className="bg-blue-800 text-white px-4 py-2 roundex-xl "
+          onClick={handlePrint}
+        >
+          Print Back Part
+        </button>
+      </div>
+
+      <style>
+        {`
+        @media print {
+          button {
+            display: none;
+          }
+            .main{
+            margin-top: 0px;
+            }
+        }
+      `}
+      </style>
     </div>
   );
 }

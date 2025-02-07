@@ -160,7 +160,7 @@ const CardPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="font-semibold">Session</p>
-                    <p className="ml-[42px] font-semibold">: &nbsp;2022-2023</p>
+                    <p className="ml-[42px] font-semibold">: &nbsp;2023-2024</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <p className="font-semibold text-red-700">Blood Group</p>

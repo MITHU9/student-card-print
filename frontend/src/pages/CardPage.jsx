@@ -117,27 +117,27 @@ const CardPage = () => {
         <div className="flex items-center justify-center">
           <div
             ref={printRef1}
-            className="print-area bg-white h-[204px] w-[324px] shadow-xl box-border"
+            className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border "
           >
-            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1">
+            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
               <img src="/PUST_Logo.svg" alt="logo" className="size-5" />
               <h2 className="text-[9.79px] py-[2px] font-bold text-red-700">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex px-1 gap-[8px] bg-[#F7F0EE] items-center py-[2px]">
-              <div className="flex items-center justify-between flex-col h-[130px]">
+            <div className="flex  bg-[#F7F0EE] items-center py-[2px] h-[118.26px]">
+              <div className="flex items-center justify-between flex-col  ">
                 <img
                   src={data?.picture}
                   alt="Student"
-                  className="size-20 rounded-lg border-black"
+                  className="h-[70px] w-[75px]   pl-[26.56px]"
                 />
-                <div className="">
-                  <hr className="w-24" />
+                <div className="pt-4 pl-[26.56px]">
+                  <hr className="w-12" />
                   <p className="text-[5.174px]">Signature of Student</p>
                 </div>
               </div>
-              <div className="">
+              <div className="pl-[32.80px]">
                 <h2 className="uppercase text-[9.26px] font-bold underline mb-1">
                   Student Identity Card
                 </h2>
@@ -176,8 +176,8 @@ const CardPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] pt-2.5 text-left text-[5.174px] pl-2">
-              <hr className="w-24" />
+            <div className="bg-[#CEB8B0] pt-3 text-left text-[5.174px]  h-[34.20px] pl-[26.56px]">
+              <hr className="w-12" />
               <p>Signature of Provost</p>
             </div>
           </div>

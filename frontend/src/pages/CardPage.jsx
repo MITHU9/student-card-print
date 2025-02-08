@@ -117,7 +117,7 @@ const CardPage = () => {
         <div className="flex items-center justify-center">
           <div
             ref={printRef1}
-            className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border "
+            className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border"
           >
             <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
               <img src="/PUST_Logo.svg" alt="logo" className="size-5" />

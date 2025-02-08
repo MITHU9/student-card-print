@@ -73,23 +73,23 @@ const CardPage = () => {
                   </div>
                   <div className="flex items-center">
                     <p className="font-semibold">Roll No.</p>
-                    <p className="ml-[25px] font-semibold">
+                    <p className="ml-[26px] font-semibold">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="font-semibold">Session</p>
-                    <p className="ml-[26px] font-semibold">: &nbsp;2023-2024</p>
+                    <p className="ml-[28px] font-semibold">: &nbsp;2023-2024</p>
                   </div>
                   <div className="flex items-center">
                     <p className="font-semibold text-red-700">Blood Group</p>
-                    <p className="font-semibold text-red-700 ml-[8px]">
+                    <p className="font-semibold text-red-700 ml-[6px]">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
                   <div className="flex items-center ">
                     <p className="font-semibold">Emergency</p>
-                    <p className="font-semibold ml-[11px]">
+                    <p className="font-semibold ml-[14px]">
                       : &nbsp;+880{data?.Mobile}
                     </p>
                   </div>

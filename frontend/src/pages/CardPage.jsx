@@ -84,7 +84,7 @@ import { useLoaderData } from "react-router-dom";
 const CardPage = () => {
   const data = useLoaderData();
   const printRef1 = useRef();
-  const printRef2 = useRef();
+  // const printRef2 = useRef();
 
   const handlePrint = (printRef) => {
     const printContent = printRef.current;
@@ -105,87 +105,86 @@ const CardPage = () => {
         >
           Print Card 1
         </button>
-        <button
+        {/* <button
           onClick={() => handlePrint(printRef2)}
           className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 mr-4"
         >
           Print Card 2
-        </button>
+        </button> */}
       </div>
 
-      <section className="grid grid-cols-1 md:grid-cols-2  gap-4 justify-center mt-5">
+      <section className="grid grid-cols-1 gap-4 justify-center mt-5">
         <div className="flex items-center justify-center">
           <div
             ref={printRef1}
-            className="print-area rounded-xl bg-white w-[600px] shadow-xl"
+            className="print-area bg-white h-[204px] w-[324px] shadow-xl box-border"
           >
-            <div className="bg-[#CEB8B0] text-center flex items-center justify-center py-2 px-3">
-              <img src="/PUST_Logo.svg" alt="logo" className="size-10" />
-              <h2 className="text-lg py-3 font-bold text-red-700">
+            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1">
+              <img src="/PUST_Logo.svg" alt="logo" className="size-5" />
+              <h2 className="text-[9.79px] py-[2px] font-bold text-red-700">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex px-3 bg-[#F7F0EE] items-center pb-5 pt-1">
-              <div>
+            <div className="flex px-1 gap-[8px] bg-[#F7F0EE] items-center py-[2px]">
+              <div className="flex items-center justify-between flex-col h-[130px]">
                 <img
                   src={data?.picture}
                   alt="Student"
-                  className="w-24 h-24 rounded-lg border border-dashed border-black"
+                  className="size-20 rounded-lg border-black"
                 />
-                <div className="mt-6">
-                  <hr />
-                  <p className="text-xs">Signature of Student</p>
+                <div className="">
+                  <hr className="w-24" />
+                  <p className="text-[5.174px]">Signature of Student</p>
                 </div>
               </div>
-              <div className="ml-4 text-sm">
-                <h2 className="uppercase text-lg font-bold underline mb-1">
+              <div className="">
+                <h2 className="uppercase text-[9.26px] font-bold underline mb-1">
                   Student Identity Card
                 </h2>
-                <div className="mb-2">
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold">Name</p>
-                    <p className="ml-12 font-semibold">: &nbsp;{data?.Name}</p>
+                <div className=" text-[9.39px]">
+                  <div className="flex items-center">
+                    <p className=" font-bold">{data?.Name}</p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center">
                     <p className="font-semibold">Department</p>
                     <p className="ml-2 font-semibold">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center">
                     <p className="font-semibold">Roll No.</p>
-                    <p className="ml-[39px] font-semibold">
+                    <p className="ml-[31px] font-semibold">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center">
                     <p className="font-semibold">Session</p>
-                    <p className="ml-[42px] font-semibold">: &nbsp;2023-2024</p>
+                    <p className="ml-[33px] font-semibold">: &nbsp;2023-2024</p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center">
                     <p className="font-semibold text-red-700">Blood Group</p>
-                    <p className="font-semibold text-red-700 ml-[3px]">
+                    <p className="font-semibold text-red-700 ml-[6px]">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center ">
                     <p className="font-semibold">Emergency</p>
-                    <p className="ml-[16px] font-semibold">
+                    <p className="font-semibold ml-[14px]">
                       : &nbsp;+880{data?.Mobile}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] px-3 py-5 text-left text-xs">
-              <hr className="w-28 mt-2" />
+            <div className="bg-[#CEB8B0] pt-2.5 text-left text-[5.174px] pl-2">
+              <hr className="w-24" />
               <p>Signature of Provost</p>
             </div>
           </div>
         </div>
 
         {/* Printable ID Card 2 (Different Background Color) */}
-        <div className="flex items-center justify-center ">
+        {/* <div className="flex items-center justify-center ">
           <div ref={printRef2} className="bg-white w-[600px] shadow-xl ">
             <div className="bg-[#CEB8B0] text-center flex items-center justify-center py-2 px-3">
               <img src="/PUST_Logo.svg" alt="logo" className="size-10" />
@@ -250,7 +249,7 @@ const CardPage = () => {
               <p>Signature of Provost</p>
             </div>
           </div>
-        </div>
+        </div> */}
       </section>
     </div>
   );

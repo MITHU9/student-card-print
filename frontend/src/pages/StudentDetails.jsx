@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router-dom";
 const StudentDetails = () => {
   const data = useLoaderData();
 
-  console.log(data);
+  //console.log(data);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">

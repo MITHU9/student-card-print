@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @media print {
   @page {
-    size: 14.7cm 8.38cm;
+    size: 85.72mm 53.989mm;
     /* size: 85.5mm 54mm.5; */
     margin: 0;
   }

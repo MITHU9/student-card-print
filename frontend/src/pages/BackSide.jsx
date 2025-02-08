@@ -61,11 +61,15 @@ export default function BackSIde() {
 
   const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
   return (
-    <div className="flex main justify-center mt-12 ">
+    <div className="flex main justify-center mt-[126.72px] ">
       {/* {JSON.stringify(student)} */}
-      <div className="bg-[#CEB8B0] w-[600px] px-6 py-[15.3px] shadow-lg text-center">
-        <p className="text-red-900 font-bold">Issue date : 26 October, 2024</p>
-        <p className="text-gray-900 font-bold">Validity for : 5 Years</p>
+      <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[26.72px] shadow-lg text-center">
+        <p className="text-red-900 font-bold text-[8.36px]">
+          Issue date : 26 October, 2024
+        </p>
+        <p className="text-gray-900 font-bold text-[8.36px]">
+          Validity for : 5 Years
+        </p>
         {/* <div className="flex justify-center items-center my-4 border border-dashed size-[90px] bg-white mx-auto p-1">
           {student?.qrCode && (
             <img
@@ -77,14 +81,14 @@ export default function BackSIde() {
 
         </div> */}
         {/* QR Code Container */}
-        <div className="flex justify-center items-center my-4 border border-dashed size-[90px] bg-white mx-auto p-1">
-          {student && <QRCode value={studenturl} size={80} />}
+        <div className="flex justify-center items-center mt-2  border border-dashed size-[40px] bg-white mx-auto p-[2px]">
+          {student && <QRCode value={studenturl} size={40} />}
         </div>
-        <p className="text-black text-sm font-semibold">
+        <p className="text-black text-sm font-semibold text-[8.26px] mt-[20.29px]">
           If this card is found anywhere other than in possession of the legal
           owner, please return it to the address below:
         </p>
-        <div className="mt-4 text-black text-sm">
+        <div className="mt-4 text-black text-[8.26px]">
           <p className="font-bold text-red-800">Registrar</p>
           <p className="text-gray-800 flex items-center justify-center font-semibold">
             <IoIosCall /> +8802588845193

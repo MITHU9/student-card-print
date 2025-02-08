@@ -45,14 +45,14 @@ const CardPage = () => {
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex  bg-[#F7F0EE] items-center py-[2px] h-[118.26px]">
+            <div className="flex  bg-[#F7F0EE] items-center pl-[26.56px] py-[2px] h-[118.26px]">
               <div className="flex items-center justify-between flex-col  ">
                 <img
                   src={data?.picture}
                   alt="Student"
-                  className="h-[70px] w-[75px]   pl-[26.56px]"
+                  className="h-[70px] w-[50px] border-dashed border-1  "
                 />
-                <div className="pt-4 pl-[26.56px]">
+                <div className="pt-4 ">
                   <hr className="w-12" />
                   <p className="text-[5.174px]">Signature of Student</p>
                 </div>
@@ -63,7 +63,10 @@ const CardPage = () => {
                 </h2>
                 <div className=" text-[9.39px]">
                   <div className="flex items-center">
-                    <p className=" font-bold">{data?.Name}</p>
+                    <p className="font-semibold">Name</p>
+                    <p className=" font-semibold ml-[34px]">
+                      : &nbsp;{data?.Name}
+                    </p>
                   </div>
                   <div className="flex items-center">
                     <p className="font-semibold">Department</p>

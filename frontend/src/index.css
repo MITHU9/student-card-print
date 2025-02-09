@@ -1,4 +1,7 @@
 @import "tailwindcss";
+body {
+  font-family: Helvetica;
+}
 @media print {
   @page {
     size: 85.72mm 53.989mm;
@@ -8,6 +11,7 @@
   body {
     /* visibility: hidden; */
     /* display: none; */
+    font-family: Helvetica;
     -webkit-print-color-adjust: exact !important; /* Ensures accurate colors in WebKit browsers */
     print-color-adjust: exact !important; /* Ensures accurate colors in other browsers */
   }

@@ -81,8 +81,8 @@ export default function BackSIde() {
 
         </div> */}
         {/* QR Code Container */}
-        <div className="flex justify-center items-center mt-2  border border-dashed size-[40px] bg-white mx-auto p-[2px]">
-          {student && <QRCode value={studenturl} size={40} />}
+        <div className="flex justify-center items-center mt-2  border border-dashed size-[40px] bg-[#CEB8B0] mx-auto p-[2px]">
+          {student && <QRCode value={studenturl} size={40} bgColor="#CEB8B0" />}
         </div>
         <p className="text-black text-sm font-semibold text-[8.26px] mt-[20.29px]">
           If this card is found anywhere other than in possession of the legal

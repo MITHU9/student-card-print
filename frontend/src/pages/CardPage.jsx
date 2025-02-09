@@ -64,14 +64,14 @@ const CardPage = () => {
               <div className="pl-[32.80px]">
                 <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
-                  <hr className="w-[116px]" />
+                  <hr className="w-[118px]" />
                 </h2>
                 <div className="-space-y-[3px] text-[9.39px]">
                   <div className="flex items-center">
-                    <p className="text-[9.399px]">Name</p>
-                    <p className="text-[9.399px]  ml-[34px] font-bold">
-                      : &nbsp;{data?.Name}
+                    <p className="text-[9.399px]">
+                      Name <span className=" ml-[31.5px]">:</span> &nbsp;
                     </p>
+                    <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Department</p>
@@ -81,7 +81,7 @@ const CardPage = () => {
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Roll No.</p>
-                    <p className="ml-[25px] text-[9.399px]">
+                    <p className="ml-[26px] text-[9.399px]">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
@@ -93,14 +93,14 @@ const CardPage = () => {
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px] text-red-700">Blood Group</p>
-                    <p className="text-[9.399px] text-red-700 ml-[8px]">
+                    <p className="text-[9.399px] text-red-700 ml-[7px]">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
                   <div className="flex items-center ">
                     <p className="text-[9.399px]">Emergency</p>
-                    <p className="text-[9.399px] ml-[11px]">
-                      : &nbsp;+880{data?.Mobile}
+                    <p className="text-[9.399px] ml-[12.2px]">
+                      : &nbsp;+880{data?.phone}
                     </p>
                   </div>
                 </div>

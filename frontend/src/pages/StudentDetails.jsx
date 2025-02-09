@@ -53,20 +53,20 @@ const StudentDetails = () => {
             <span className="font-semibold">Mother&apos;s Occupation:</span>{" "}
             {data?.M_occupation}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Family Income:</span>{" "}
             {data?.family_income} BDT
-          </p>
+          </p> */}
           <p>
             <span className="font-semibold">Mobile:</span> 0{data?.Mobile}
           </p>
           <p>
             <span className="font-semibold">Phone:</span> 0{data?.phone}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Admission Roll:</span>{" "}
             {data?.Admission_roll}
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

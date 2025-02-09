@@ -82,16 +82,16 @@ export default function BackSIde() {
             />
           )}
         </div>
-        <p className="text-black mt-2 font-semibold text-[8.26px]">
+        <p className="text-black mt-2  text-[8.26px]">
           If this card is found anywhere other than in possession of the legal
           owner, please return it to the address below:
         </p>
         <div className=" text-black mt-1.5 text-[8.26px]">
-          <p className="font-bold text-red-800">Registrar</p>
-          <p className="text-gray-800 flex items-center justify-center font-semibold">
+          <p className=" text-red-800">Registrar</p>
+          <p className="text-black flex items-center justify-center ">
             <IoIosCall /> +8802588845193
           </p>
-          <p className="text-gray-800 flex items-center justify-center font-semibold">
+          <p className="text-black flex items-center justify-center ">
             <MdEmail className="mr-0.5" /> registraroffice@pust.ac.bd
           </p>
         </div>

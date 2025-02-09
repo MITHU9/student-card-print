@@ -65,10 +65,12 @@ export default function BackSIde() {
       {/* {JSON.stringify(student)} */}
       <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
         <p className="text-red-900 font-bold text-[8.36px]">
-          Issue date : 26 October, 2024
+          Issue date : {new Date().getDate()}{" "}
+          {new Date().toLocaleString("en-US", { month: "long" })},{" "}
+          {new Date().getFullYear()}
         </p>
         <p className="text-gray-900 font-bold text-[8.36px]">
-          Validity for&nbsp; 5 Years
+          Valid for&nbsp; 4 Years
         </p>
         {/* QR Code Container */}
         <div className="flex justify-center items-center mt-2  border border-dashed h-[45.5424px] w-[45.5808px] bg-[#CEB8B0] mx-auto p-[2px]">

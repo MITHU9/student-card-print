@@ -64,7 +64,7 @@ const CardPage = () => {
               <div className="pl-[32.80px]">
                 <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
-                  <hr className="w-[118px]" />
+                  <hr className="w-[116px]" />
                 </h2>
                 <div className="-space-y-[3px] text-[9.39px]">
                   <div className="flex items-center">

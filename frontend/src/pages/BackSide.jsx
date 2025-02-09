@@ -72,7 +72,13 @@ export default function BackSIde() {
         </p>
         {/* QR Code Container */}
         <div className="flex justify-center items-center mt-2  border border-dashed h-[45.5424px] w-[45.5808px] bg-[#CEB8B0] mx-auto p-[2px]">
-          {student && <QRCode value={studenturl} size={40} bgColor="#CEB8B0" />}
+          {student && (
+            <QRCode
+              value={studenturl}
+              bgColor="#CEB8B0"
+              className="w-full h-full"
+            />
+          )}
         </div>
         <p className="text-black mt-2 font-semibold text-[8.26px]">
           If this card is found anywhere other than in possession of the legal
@@ -84,7 +90,7 @@ export default function BackSIde() {
             <IoIosCall /> +8802588845193
           </p>
           <p className="text-gray-800 flex items-center justify-center font-semibold">
-            <MdEmail className="mr-0.5 mt-0.5" /> registraroffice@pust.ac.bd
+            <MdEmail className="mr-0.5" /> registraroffice@pust.ac.bd
           </p>
         </div>
       </div>

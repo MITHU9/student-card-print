@@ -63,32 +63,22 @@ export default function BackSIde() {
   return (
     <div className="flex main justify-center mt-[126.72px] ">
       {/* {JSON.stringify(student)} */}
-      <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[26.72px] shadow-lg text-center">
+      <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
         <p className="text-red-900 font-bold text-[8.36px]">
           Issue date : 26 October, 2024
         </p>
         <p className="text-gray-900 font-bold text-[8.36px]">
-          Validity for : 5 Years
+          Validity for&nbsp; 5 Years
         </p>
-        {/* <div className="flex justify-center items-center my-4 border border-dashed size-[90px] bg-white mx-auto p-1">
-          {student?.qrCode && (
-            <img
-              src={student.qrCode}
-              alt="QR Code"
-              className="text-black text-7xl"
-            />
-          )}
-
-        </div> */}
         {/* QR Code Container */}
-        <div className="flex justify-center items-center mt-2  border border-dashed size-[40px] bg-[#CEB8B0] mx-auto p-[2px]">
+        <div className="flex justify-center items-center mt-2  border border-dashed h-[45.5424px] w-[45.5808px] bg-[#CEB8B0] mx-auto p-[2px]">
           {student && <QRCode value={studenturl} size={40} bgColor="#CEB8B0" />}
         </div>
-        <p className="text-black text-sm font-semibold text-[8.26px] mt-[20.29px]">
+        <p className="text-black mt-2 font-semibold text-[8.26px]">
           If this card is found anywhere other than in possession of the legal
           owner, please return it to the address below:
         </p>
-        <div className="mt-4 text-black text-[8.26px]">
+        <div className=" text-black mt-1.5 text-[8.26px]">
           <p className="font-bold text-red-800">Registrar</p>
           <p className="text-gray-800 flex items-center justify-center font-semibold">
             <IoIosCall /> +8802588845193
@@ -100,7 +90,7 @@ export default function BackSIde() {
       </div>
       <div>
         <button
-          className="bg-blue-800 text-white px-4 py-2 roundex-xl "
+          className="bg-blue-800 text-white px-4 py-2 rounded-xl ml-12 cursor-pointer"
           onClick={handlePrint}
         >
           Print Back Part

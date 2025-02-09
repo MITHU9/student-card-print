@@ -40,25 +40,29 @@ const CardPage = () => {
             className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border"
           >
             <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
-              <img src="/PUST_Logo.svg" alt="logo" className="size-5" />
+              <img
+                src="/PUST_Logo.svg"
+                alt="logo"
+                className="w-[23.712px] h-[32.352px]"
+              />
               <h2 className="text-[9.79px] py-[2px] font-bold text-red-700">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex  bg-[#F7F0EE] items-center pl-[26.56px] py-[2px] h-[118.26px] ">
-              <div className="flex items-center justify-end flex-col ">
+            <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
+              <div className="flex items-center justify-end flex-col pb-[2px]">
                 <img
                   src={data?.picture}
                   alt="Student"
-                  className="h-[64.0512px] w-[51.6288px] mt-7 border-dashed border-1  "
+                  className="h-[64.0512px] w-[51.6288px] mt-7 border-dashed border-1"
                 />
-                <div className="pt-4 ">
-                  <hr className="w-12" />
+                <div className="mt-4">
+                  <hr className="w-13" />
                   <p className="text-[5.666px]">Signature of Student</p>
                 </div>
               </div>
               <div className="pl-[32.80px]">
-                <h2 className="uppercase  text-[9.26px] font-bold  mb-[2px]">
+                <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
                   <hr className="w-[118px]" />
                 </h2>
@@ -71,39 +75,39 @@ const CardPage = () => {
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Department</p>
-                    <p className="ml-2 text-[9.399px]">
+                    <p className="ml-[10px] text-[9.399px]">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Roll No.</p>
-                    <p className="ml-[26px] text-[9.399px]">
+                    <p className="ml-[25px] text-[9.399px]">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Session</p>
-                    <p className="ml-[28px] text-[9.399px]">
+                    <p className="ml-[26px] text-[9.399px]">
                       : &nbsp;2023-2024
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px] text-red-700">Blood Group</p>
-                    <p className="text-[9.399px]text-red-700 ml-[6px]">
+                    <p className="text-[9.399px] text-red-700 ml-[8px]">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
                   <div className="flex items-center ">
                     <p className="text-[9.399px]">Emergency</p>
-                    <p className="text-[9.399px] ml-[14px]">
+                    <p className="text-[9.399px] ml-[11px]">
                       : &nbsp;+880{data?.Mobile}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] pt-3 text-left   h-[34.20px] pl-[26.56px]">
-              <hr className="w-12" />
+            <div className="bg-[#CEB8B0] pt-5 text-left   h-[34.20px] pl-[26.56px]">
+              <hr className="w-13" />
               <p className="text-[5.666px]">Signature of Provost</p>
             </div>
           </div>

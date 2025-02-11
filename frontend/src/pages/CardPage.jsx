@@ -54,9 +54,9 @@ const CardPage = () => {
                 <img
                   src={data?.picture}
                   alt="Student"
-                  className="h-[64.0512px] w-[51.6288px] mt-7 border-dashed border-1"
+                  className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />
-                <div className="mt-1">
+                <div className="mt-1 ">
                   {/* <h1 className="text-[5.666px]">fardin</h1> */}
                   <img
                     src={signature}
@@ -64,7 +64,9 @@ const CardPage = () => {
                     className="w-[50px] h-[12px]"
                   />
                   <hr className="w-13" />
-                  <p className="text-[5.666px]">Signature of Student</p>
+                  <p className="text-[5.666px] font-medium">
+                    Signature of Student
+                  </p>
                 </div>
               </div>
               <div className="pl-[32.80px]">
@@ -74,38 +76,40 @@ const CardPage = () => {
                 </h2>
                 <div className="-space-y-[3px] text-[9.39px]">
                   <div className="flex items-center">
-                    <p className="text-[9.399px]">
+                    <p className="text-[9.399px] font-semibold">
                       Name <span className=" ml-[31.5px]">:</span> &nbsp;
                     </p>
                     <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px]">Department</p>
-                    <p className="ml-[10px] text-[9.399px]">
+                    <p className="text-[9.399px] font-semibold">Department</p>
+                    <p className="ml-[7.5px] text-[9.399px] font-semibold">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px]">Roll No.</p>
-                    <p className="ml-[26px] text-[9.399px]">
+                    <p className="text-[9.399px] font-semibold">Roll No.</p>
+                    <p className="ml-[24.3px] text-[9.399px] font-semibold">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px]">Session</p>
-                    <p className="ml-[26px] text-[9.399px]">
+                    <p className="text-[9.399px] font-semibold">Session</p>
+                    <p className="ml-[24px] text-[9.399px] font-semibold">
                       : &nbsp;2023-2024
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] text-red-700">Blood Group</p>
-                    <p className="text-[9.399px] text-red-700 ml-[7px]">
+                    <p className="text-[9.399px] text-red-700 font-semibold">
+                      Blood Group
+                    </p>
+                    <p className="text-[9.399px] text-red-700 ml-[3px] font-semibold">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
                   <div className="flex items-center ">
-                    <p className="text-[9.399px]">Emergency</p>
-                    <p className="text-[9.399px] ml-[12.2px]">
+                    <p className="text-[9.399px] font-semibold">Emergency</p>
+                    <p className="text-[9.399px] ml-[10px] font-semibold">
                       : &nbsp;+880{data?.phone}
                     </p>
                   </div>
@@ -113,8 +117,10 @@ const CardPage = () => {
               </div>
             </div>
             <div className="bg-[#CEB8B0] pt-5 text-left   h-[34.20px] pl-[26.56px]">
-              <hr className="w-13" />
-              <p className="text-[5.666px]">Signature of Provost</p>
+              <hr className="w-[56px]" />
+              <p className="text-[5.666px] font-semibold">
+                Signature of Provost
+              </p>
             </div>
           </div>
         </div>

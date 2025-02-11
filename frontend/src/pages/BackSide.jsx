@@ -64,12 +64,12 @@ export default function BackSIde() {
     <div className="flex main justify-center mt-[126.72px] ">
       {/* {JSON.stringify(student)} */}
       <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
-        <p className="text-red-900 font-bold text-[8.36px]">
+        <p className="text-red-900 font-bold text-[8.36px] ">
           Issue date : {new Date().getDate()}{" "}
           {new Date().toLocaleString("en-US", { month: "long" })},{" "}
           {new Date().getFullYear()}
         </p>
-        <p className="text-gray-900 font-bold text-[8.36px]">
+        <p className="text-gray-900 font-bold text-[8.36px] ">
           Valid for&nbsp; 4 Years
         </p>
         {/* QR Code Container */}
@@ -82,11 +82,11 @@ export default function BackSIde() {
             />
           )}
         </div>
-        <p className="text-black mt-2  text-[8.26px]">
+        <p className="text-black mt-2  text-[8.26px] font-semibold">
           If this card is found anywhere other than in possession of the legal
           owner, please return it to the address below:
         </p>
-        <div className=" text-black mt-1.5 text-[8.26px]">
+        <div className=" text-black mt-1.5 text-[8.26px] font-semibold">
           <p className=" text-red-800">Registrar</p>
           <p className="text-black flex items-center justify-center ">
             <IoIosCall /> +8802588845193

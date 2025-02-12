@@ -64,7 +64,7 @@ const CardPage = () => {
                     className="w-[50px] h-[12px]"
                   />
                   <hr className="w-13" />
-                  <p className="text-[5.666px] font-medium">
+                  <p className="text-[5.666px] font-semibold">
                     Signature of Student
                   </p>
                 </div>

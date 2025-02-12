@@ -8,10 +8,19 @@ import BackSide from "./pages/BackSide.jsx";
 import CardPage from "./pages/CardPage.jsx";
 import AllStudents from "./pages/StudentsPage.jsx";
 import StudentDetails from "./pages/StudentDetails.jsx";
+import Login from "./pages/Login.jsx";
+import UpdatePage from "./pages/UpdatePage.jsx";
+
+const local = "http://localhost:5000";
+const remote = "https://library-card-backend.vercel.app";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login />,
+  },
+  {
+    path: "/home",
     element: <App />,
   },
 
@@ -22,10 +31,7 @@ const router = createBrowserRouter([
   {
     path: "/print-preview/:id",
     element: <CardPage />,
-    loader: async ({ params }) =>
-      fetch(
-        `https://library-card-backend.vercel.app/print-preview/${params.id}`
-      ),
+    loader: async ({ params }) => fetch(`${local}/print-preview/${params.id}`),
   },
   {
     path: "/print-backside/:id",
@@ -34,10 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/student-details/:id",
     element: <StudentDetails />,
-    loader: async ({ params }) =>
-      fetch(
-        `https://library-card-backend.vercel.app/print-preview/${params.id}`
-      ),
+    loader: async ({ params }) => fetch(`${local}/print-preview/${params.id}`),
+  },
+  {
+    path: "/update-info/:id",
+    element: <UpdatePage />,
   },
 ]);
 

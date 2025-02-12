@@ -62,6 +62,27 @@ async function run() {
       res.json(students);
     });
 
+    //login with applicant_id and admission roll
+    app.post("/login", async (req, res) => {
+      const { roll, registration } = req.body;
+
+      const numAdmissionRoll = parseInt(registration);
+
+      const student = await studentCollection.findOne({
+        Roll: roll,
+        Registration: numAdmissionRoll,
+      });
+
+      if (!student) {
+        res.json({ error: "Invalid credentials" });
+        return;
+      }
+
+      res.status(200).send({
+        message: "Login successful",
+      });
+    });
+
     //get total students
     app.get("/total-students", async (req, res) => {
       const totalStudents = await studentCollection.estimatedDocumentCount();
@@ -72,10 +93,28 @@ async function run() {
     //get student by id
     app.get("/print-preview/:id", async (req, res) => {
       const id = req.params.id;
-      console.log(id);
+      //console.log(id);
       const student = await studentCollection.findOne({
         _id: new ObjectId(id),
       });
+      res.json(student);
+    });
+
+    //get student information by applicant_id
+    app.get("/student/:registration", async (req, res) => {
+      const registration = req.params.registration;
+
+      const numId = parseInt(registration);
+
+      const student = await studentCollection.findOne({
+        Registration: numId,
+      });
+
+      if (!student) {
+        res.json({ error: "Student not found" });
+        return;
+      }
+
       res.json(student);
     });
 

@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
 
 const UpdatePage = () => {
   const { id } = useParams();
   const [student, setStudent] = useState({});
+  const [signature, setSignature] = useState(null);
+  const [imageError, setImageError] = useState("");
 
-  //console.log(id);
-
+  // Fetch student data
   useEffect(() => {
     fetch(`http://localhost:5000/student/${id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setStudent(data);
       })
       .catch((err) => {
@@ -19,7 +20,82 @@ const UpdatePage = () => {
       });
   }, [id]);
 
-  console.log(student);
+  const handleChange = (e) => {
+    const file = e.target.files[0];
+    console.log("File:", file);
+
+    if (file) {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        img.onload = () => {
+          const { width, height } = img;
+          if (width > 300 || height > 80) {
+            setImageError("Image dimensions must be 300x80 or less.");
+            setSignature(null);
+          } else {
+            setImageError("");
+            setSignature(file);
+          }
+        };
+        img.src = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleClick = async () => {
+    console.log("Signature file:", signature);
+    if (!signature) {
+      alert("Please upload a valid signature image.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", signature);
+    console.log("Form Data:", formData);
+
+    try {
+      const uploadResponse = await fetch(imageHostingApi, {
+        method: "POST",
+        body: formData,
+      });
+
+      const uploadData = await uploadResponse.json();
+
+      if (uploadData.data && uploadData.data.url) {
+        const studentSignature = {
+          signature: uploadData.data.url,
+        };
+
+        const updateResponse = await fetch(
+          `http://localhost:5000/update-signature/${id}`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(studentSignature),
+          }
+        );
+
+        const result = await updateResponse.json();
+
+        if (updateResponse.ok) {
+          alert("Signature uploaded and updated successfully!");
+        } else {
+          alert("Failed to update signature. Please try again.");
+        }
+      } else {
+        alert("Failed to upload image. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error uploading signature:", error);
+      alert("An error occurred while uploading the signature.");
+    }
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -30,11 +106,12 @@ const UpdatePage = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="text-center col-span-2">
             <img
-              src={student?.picture}
+              src={student?.picture || "/default-image.jpg"}
               alt="Applicant"
               className="w-32 h-32 rounded-full border-2 mx-auto"
             />
           </div>
+
           <div>
             <label className="block text-gray-700">Applicant ID</label>
             <input
@@ -125,13 +202,22 @@ const UpdatePage = () => {
               className="w-full px-4 py-2 border rounded-lg bg-gray-200"
             />
           </div>
+
+          {/* Upload Signature Section */}
           <div className="col-span-2">
             <label className="block text-gray-700">Upload Signature</label>
-            <input type="file" className="w-full px-4 py-2 border rounded-lg" />
+            <input
+              onChange={handleChange}
+              type="file"
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+            {imageError && <p className="text-red-500">{imageError}</p>}
           </div>
+
           <div className="col-span-2">
             <button
-              type="submit"
+              type="button"
+              onClick={handleClick}
               className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
             >
               Submit
@@ -142,4 +228,5 @@ const UpdatePage = () => {
     </div>
   );
 };
+
 export default UpdatePage;

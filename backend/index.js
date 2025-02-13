@@ -33,7 +33,7 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    //await client.connect();
+    await client.connect();
 
     const studentCollection = client
       .db("students-db")
@@ -104,14 +104,14 @@ async function run() {
     app.patch("/update-signature/:id", async (req, res) => {
       const id = req.params.id;
       const { signature } = req.body;
-      console.log("ID:", id);
+      //console.log("ID:", id);
       const numID = parseInt(id);
       const filter = { Registration: numID };
       const updateDoc = { $set: { signature: signature } };
 
       const result = await studentCollection.updateOne(
         { Registration: numID },
-        { $set: { signature: signature } }
+        { $set: { signature: signature, can_update: false } }
       );
 
       if (result.modifiedCount > 0) {

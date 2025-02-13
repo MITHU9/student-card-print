@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
 
 const UpdatePage = () => {
   const { id } = useParams();
+  const [flag, setFlag] = useState(false);
   const [student, setStudent] = useState({});
   const [signature, setSignature] = useState(null);
   const [imageError, setImageError] = useState("");
+
+  const [loading, setLoading] = useState(true);
 
   // Fetch student data
   useEffect(() => {
@@ -14,11 +18,12 @@ const UpdatePage = () => {
       .then((res) => res.json())
       .then((data) => {
         setStudent(data);
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }, [id, flag]);
 
   const handleChange = (e) => {
     const file = e.target.files[0];
@@ -47,7 +52,7 @@ const UpdatePage = () => {
   };
 
   const handleClick = async () => {
-    console.log("Signature file:", signature);
+    setLoading(true);
     if (!signature) {
       alert("Please upload a valid signature image.");
       return;
@@ -55,7 +60,7 @@ const UpdatePage = () => {
 
     const formData = new FormData();
     formData.append("image", signature);
-    console.log("Form Data:", formData);
+    //console.log("Form Data:", formData);
 
     try {
       const uploadResponse = await fetch(imageHostingApi, {
@@ -81,9 +86,11 @@ const UpdatePage = () => {
           }
         );
 
-        const result = await updateResponse.json();
+        await updateResponse.json();
 
         if (updateResponse.ok) {
+          setFlag(true);
+          setLoading(false);
           alert("Signature uploaded and updated successfully!");
         } else {
           alert("Failed to update signature. Please try again.");
@@ -96,6 +103,12 @@ const UpdatePage = () => {
       alert("An error occurred while uploading the signature.");
     }
   };
+
+  if (!loading && !student) {
+    return <h1>Loading...</h1>;
+  }
+
+  console.log("Student:", student.can_update);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
@@ -217,10 +230,11 @@ const UpdatePage = () => {
           <div className="col-span-2">
             <button
               type="button"
+              disabled={!student?.can_update && student?.can_update === false}
               onClick={handleClick}
-              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+              className="w-full bg-blue-500 text-white py-2 rounded-lg disabled:opacity-20 disabled:cursor-not-allowed hover:bg-blue-600 transition"
             >
-              Submit
+              {loading ? "Uploading..." : "Upload Signature"}
             </button>
           </div>
         </div>

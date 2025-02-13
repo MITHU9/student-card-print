@@ -100,6 +100,29 @@ async function run() {
       res.json(student);
     });
 
+    // Update student signature URL
+    app.patch("/update-signature/:id", async (req, res) => {
+      const id = req.params.id;
+      const { signature } = req.body;
+      console.log("ID:", id);
+      const numID = parseInt(id);
+      const filter = { Registration: numID };
+      const updateDoc = { $set: { signature: signature } };
+
+      const result = await studentCollection.updateOne(
+        { Registration: numID },
+        { $set: { signature: signature } }
+      );
+
+      if (result.modifiedCount > 0) {
+        res.json({ message: "Signature updated successfully" });
+      } else {
+        res
+          .status(400)
+          .json({ message: "No changes made. Check the ID again." });
+      }
+    });
+
     //get student information by applicant_id
     app.get("/student/:registration", async (req, res) => {
       const registration = req.params.registration;

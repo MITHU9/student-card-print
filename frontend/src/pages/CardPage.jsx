@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import { useLoaderData } from "react-router-dom";
-import signature from "../assets/signature.png";
 const CardPage = () => {
   const data = useLoaderData();
   const printRef1 = useRef();
@@ -59,9 +58,8 @@ const CardPage = () => {
                 <div className="mt-1 ">
                   {/* <h1 className="text-[5.666px]">fardin</h1> */}
                   <img
-                    src={signature}
-                    alt="signature"
-                    className="w-[50px] h-[12px]"
+                    src={data?.signature}
+                    className="w-[52px] h-[12px] mb-[2px] object-cover"
                   />
                   <hr className="w-13" />
                   <p className="text-[5.666px] font-semibold">

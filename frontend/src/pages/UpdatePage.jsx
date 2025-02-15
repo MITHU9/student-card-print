@@ -27,7 +27,7 @@ const UpdatePage = () => {
 
   const handleChange = (e) => {
     const file = e.target.files[0];
-    console.log("File:", file);
+    // console.log("File:", file);
 
     if (file) {
       const img = new Image();
@@ -218,7 +218,9 @@ const UpdatePage = () => {
 
           {/* Upload Signature Section */}
           <div className="col-span-2">
-            <label className="block text-gray-700">Upload Signature</label>
+            <label className="block text-gray-700">
+              Upload 300x80 or less dimension signature
+            </label>
             <input
               onChange={handleChange}
               type="file"

@@ -35,7 +35,7 @@ import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { useParams } from "react-router-dom";
 
-const local = "http://localhost:5000";
+//const local = "http://localhost:5000";
 const remote = "https://library-card-backend.vercel.app";
 
 export default function BackSIde() {
@@ -44,7 +44,7 @@ export default function BackSIde() {
   useEffect(() => {
     const fetchStudent = async () => {
       try {
-        const response = await fetch(`${local}/print-preview/${id}`); // Fix: Corrected API route
+        const response = await fetch(`${remote}/print-preview/${id}`); // Fix: Corrected API route
         if (!response.ok) throw new Error("Student not found");
         const data = await response.json();
         setStudent(data);
@@ -61,7 +61,7 @@ export default function BackSIde() {
 
   //console.log(id);
 
-  const studenturl = `${local}/student-details/${id}`;
+  const studenturl = `${remote}/student-details/${id}`;
   return (
     <div className="flex main justify-center mt-[126.72px] ">
       {/* {JSON.stringify(student)} */}

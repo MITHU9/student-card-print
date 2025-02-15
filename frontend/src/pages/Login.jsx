@@ -23,12 +23,12 @@ const Login = () => {
     }
 
     const data = {
-      applicant_id: roll,
+      roll: roll,
       registration: registration,
     };
 
     axios
-      .post("http://localhost:5000/login", data)
+      .post("https://library-card-backend.vercel.app/login", data)
       .then((res) => {
         console.log(res);
 
@@ -38,6 +38,7 @@ const Login = () => {
       })
       .catch((err) => {
         console.log(err);
+        alert("Invalid credentials! Please use correct roll and registration");
       });
   };
 
@@ -74,14 +75,6 @@ const Login = () => {
                 <FiEye className="text-lg sm:text-xl" />
               )}
             </button>
-          </div>
-          <div className="flex justify-between text-sm text-gray-600">
-            <a href="#" className="hover:text-blue-500">
-              Forgot password?
-            </a>
-            <a href="#" className="hover:text-blue-500">
-              Create account
-            </a>
           </div>
           <button
             type="submit"

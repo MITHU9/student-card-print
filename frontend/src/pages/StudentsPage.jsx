@@ -2,18 +2,46 @@ import { Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useAllStudents from "../hooks/useAllStudents";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const AllStudents = () => {
   const [query, setQuery] = useState("");
   const [student, setStudent] = useState(null);
+  const axiosSecure = useAxiosSecure();
 
   const [data, loading, refetch] = useAllStudents(query);
-
-  //console.log(data);
 
   useEffect(() => {
     refetch();
   }, [query]);
+
+  const handleUpdate = (id) => {
+    axiosSecure
+      .patch(`https://library-card-backend.vercel.app/toggle-update/${id}`, {})
+      .then((res) => {
+        console.log(res.data);
+        alert("Updated successfully");
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong");
+      });
+  };
+
+  const handleComplete = (id) => {
+    axiosSecure
+      .patch(`https://library-card-backend.vercel.app/print-complete/${id}`, {})
+      .then((res) => {
+        console.log(res.data);
+        alert("Print Completed");
+        refetch();
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong");
+      });
+  };
 
   const handleSingleStudent = (id) => {
     //console.log(id);
@@ -25,7 +53,7 @@ const AllStudents = () => {
     return <div>Loading...</div>;
   }
 
-  //console.log(student);
+  //console.log(data);
 
   return (
     <div className="lg:flex gap-3">
@@ -63,6 +91,8 @@ const AllStudents = () => {
                 <th className="py-3 px-6 text-left">PHONE</th>
                 <th className="py-3 px-6 text-left">BLOOD_GROUP</th>
                 <th className="py-3 px-6 text-left">Photo</th>
+                <th className="py-3 px-6 text-left">Signature</th>
+                <th className="py-3 px-6 text-left">Can_Update</th>
               </tr>
             </thead>
             <tbody className="text-gray-700 text-sm font-light">
@@ -95,6 +125,29 @@ const AllStudents = () => {
                       alt={applicant.Name}
                       className="w-10 h-10 rounded-full border"
                     />
+                  </td>
+                  <td className="py-3 px-6">
+                    <img
+                      src={applicant.signature}
+                      alt={applicant.Name}
+                      className="w-full h-8 border"
+                    />
+                  </td>
+                  <td className="py-3 px-6">
+                    <button
+                      className="
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                    border w-full px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer
+                    "
+                      disabled={!Object.keys(applicant).includes("can_update")}
+                      onClick={() => handleUpdate(applicant._id)}
+                    >
+                      {Object.keys(applicant).includes("can_update") ? (
+                        <span>{applicant.can_update ? "Yes" : "No"}</span>
+                      ) : (
+                        <span>Yes</span>
+                      )}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -172,7 +225,10 @@ const AllStudents = () => {
               </button>
             </div>
             <div className="flex w-1/2 justify-between  gap-2 mt-4">
-              <button className="cursor-pointer font-semibold px-5 py-1 bg-green-600 border">
+              <button
+                onClick={() => handleComplete(student?._id)}
+                className="cursor-pointer font-semibold px-5 py-1 bg-green-600 border"
+              >
                 Print Completed
               </button>
               <button className="border cursor-pointer font-semibold px-5 py-1 bg-red-600">

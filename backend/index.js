@@ -1,14 +1,17 @@
 const dotenv = require("dotenv");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
+const bcrypt = require("bcryptjs");
 const express = require("express");
 const cors = require("cors");
-const QRCode = require("qrcode");
 dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 5000;
 
 //middleware
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -33,14 +36,112 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    //await client.connect();
 
     const studentCollection = client
       .db("students-db")
       .collection("all-students");
 
+    const userCollection = client.db("students-db").collection("users");
+
+    //auth related APIs
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.JWT_SECRET, {
+        expiresIn: "5h",
+      });
+      res
+        .cookie("admin_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        })
+        .send({
+          success: true,
+        });
+    });
+
+    //verify token
+    const verifyToken = (req, res, next) => {
+      const token = req.cookies?.admin_token;
+
+      //console.log("token", token);
+
+      if (!token) {
+        return res
+          .status(401)
+          .send({ message: "Access Denied! unauthorized user" });
+      }
+      try {
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verified;
+        next();
+      } catch (error) {
+        res.status(400).send({ message: "Invalid Token" });
+      }
+    };
+
+    const verifyAdmin = async (req, res, next) => {
+      const userName = req.user.username;
+
+      //console.log("admin", userName);
+
+      const user = await userCollection.findOne({ username: userName });
+
+      if (user.role === "admin") {
+        next();
+      } else {
+        return res
+          .status(401)
+          .send({ message: "Access Denied! unauthorized user" });
+      }
+    };
+
+    //admin login API
+    app.post("/admin-login", async (req, res) => {
+      const { username, password } = req.body;
+
+      const user = await userCollection.findOne({ username: username });
+
+      if (!user) {
+        return res.status(400).send({ message: "Invalid credentials" });
+      }
+
+      const validPass = await bcrypt.compare(password, user.password);
+
+      if (!validPass) {
+        return res.status(400).send({ message: "Invalid credentials" });
+      }
+
+      res.status(200).send({ message: "Login successful" });
+    });
+
+    //admin register API
+    // app.post("/admin-register", async (req, res) => {
+    //   const { username, password } = req.body;
+
+    //   const user = await userCollection.findOne({ username: username });
+
+    //   if (user) {
+    //     return res.status(400).send({ message: "User already exists" });
+    //   }
+
+    //   const salt = await bcrypt.genSalt(10);
+    //   const hashedPassword = await bcrypt.hash(password, salt);
+
+    //   const newUser = {
+    //     username: username,
+    //     password: hashedPassword,
+    //     role: "admin",
+    //   };
+
+    //   const result = await userCollection.insertOne(newUser);
+
+    //   res.status(200).send({ message: "User registered successfully" });
+    // });
+
     //get all students with query
-    app.get("/students", async (req, res) => {
+    app.get("/students", verifyToken, verifyAdmin, async (req, res) => {
       const query = req.query.query;
 
       if (query) {
@@ -66,6 +167,8 @@ async function run() {
     app.post("/login", async (req, res) => {
       const { roll, registration } = req.body;
 
+      //console.log(roll, registration);
+
       const numAdmissionRoll = parseInt(registration);
 
       const student = await studentCollection.findOne({
@@ -74,7 +177,7 @@ async function run() {
       });
 
       if (!student) {
-        res.json({ error: "Invalid credentials" });
+        res.status(403).send({ messages: "Invalid credentials" });
         return;
       }
 
@@ -84,7 +187,7 @@ async function run() {
     });
 
     //get total students
-    app.get("/total-students", async (req, res) => {
+    app.get("/total-students", verifyToken, verifyAdmin, async (req, res) => {
       const totalStudents = await studentCollection.estimatedDocumentCount();
 
       res.json(totalStudents);
@@ -140,6 +243,60 @@ async function run() {
 
       res.json(student);
     });
+
+    //admin actions toggle can_update student signature
+    app.patch(
+      "/toggle-update/:id",
+      verifyToken,
+      verifyAdmin,
+      async (req, res) => {
+        const id = req.params.id;
+
+        const student = await studentCollection.findOne({
+          _id: new ObjectId(id),
+        });
+
+        if (!student) {
+          res.json({ error: "Student not found" });
+          return;
+        }
+
+        const canUpdate = student.can_update;
+
+        await studentCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: { can_update: !canUpdate } }
+        );
+
+        res.send({ success: true });
+      }
+    );
+
+    //print complete count increase
+    app.patch(
+      "/print-complete/:id",
+      verifyToken,
+      verifyAdmin,
+      async (req, res) => {
+        const id = req.params.id;
+
+        const student = await studentCollection.findOne({
+          _id: new ObjectId(id),
+        });
+
+        if (!student) {
+          res.json({ error: "Student not found" });
+          return;
+        }
+
+        await studentCollection.updateOne(
+          { _id: new ObjectId(id) },
+          { $inc: { print_complete: 1 } }
+        );
+
+        res.send({ success: true });
+      }
+    );
 
     // await client.db("admin").command({ ping: 1 });
     // console.log(

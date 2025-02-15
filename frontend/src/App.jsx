@@ -10,7 +10,7 @@ function App() {
         <nav>
           <ul className="flex justify-center gap-5 py-5">
             <Link
-              to="/card-print"
+              to="/home/card-print"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Print Card

@@ -14,7 +14,7 @@ const UpdatePage = () => {
 
   // Fetch student data
   useEffect(() => {
-    fetch(`http://localhost:5000/student/${id}`)
+    fetch(`https://library-card-backend.vercel.app/student/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setStudent(data);
@@ -76,7 +76,7 @@ const UpdatePage = () => {
         };
 
         const updateResponse = await fetch(
-          `http://localhost:5000/update-signature/${id}`,
+          `https://library-card-backend.vercel.app/update-signature/${id}`,
           {
             method: "PATCH",
             headers: {

@@ -12,7 +12,7 @@ import Login from "./pages/Login.jsx";
 import UpdatePage from "./pages/UpdatePage.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 
-//const local = "http://localhost:5000";
+//const local = "https://library-card-backend.vercel.app";
 const remote = "https://library-card-backend.vercel.app";
 
 const router = createBrowserRouter([

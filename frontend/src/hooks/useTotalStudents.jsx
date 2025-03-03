@@ -1,8 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "./useAxiosSecure";
-
-//const local = "http://localhost:5000";
-const remote = "https://library-card-backend.vercel.app";
+import { remote } from "../config/config";
 
 function useTotalStudents() {
   const axiosSecure = useAxiosSecure();

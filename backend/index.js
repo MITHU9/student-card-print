@@ -142,7 +142,9 @@ async function run() {
 
     //get all students with query
     app.get("/students", verifyToken, verifyAdmin, async (req, res) => {
-      const query = req.query.query;
+      const { query, session, department } = req.query;
+
+      console.log(query, session, department);
 
       if (query) {
         const students = await studentCollection
@@ -158,7 +160,33 @@ async function run() {
         return;
       }
 
-      const students = await studentCollection.find().toArray();
+      if (session === "all" || department === "all") {
+        if (session === "all" && department === "all") {
+          const students = await studentCollection.find().toArray();
+          res.json(students);
+          return;
+        }
+
+        if (session === "all") {
+          const students = await studentCollection
+            .find({ Current_Department: department })
+            .toArray();
+          res.json(students);
+          return;
+        }
+
+        if (department === "all") {
+          const students = await studentCollection
+            .find({ session: session })
+            .toArray();
+          res.json(students);
+          return;
+        }
+      }
+
+      const students = await studentCollection
+        .find({ session: session, Current_Department: department })
+        .toArray();
 
       res.json(students);
     });
@@ -191,6 +219,27 @@ async function run() {
       const totalStudents = await studentCollection.estimatedDocumentCount();
 
       res.json(totalStudents);
+    });
+
+    //get all session in an array
+    app.get("/all-session", verifyToken, verifyAdmin, async (req, res) => {
+      try {
+        const sessions = await studentCollection
+          .aggregate([
+            { $group: { _id: "$session" } },
+            { $project: { _id: 0, session: "$_id" } },
+          ])
+          .toArray(); // Ensure it resolves as an array
+
+        const sessionArray = sessions.map((s) => s.session);
+
+        //console.log(sessionArray, sessions);
+
+        res.json(sessionArray);
+      } catch (error) {
+        console.error("Error fetching sessions:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+      }
     });
 
     //get student by id
@@ -269,6 +318,27 @@ async function run() {
         );
 
         res.send({ success: true });
+      }
+    );
+
+    //delete student by id
+    app.delete(
+      "/delete-student/:id",
+      verifyToken,
+      verifyAdmin,
+      async (req, res) => {
+        const id = req.params.id;
+
+        const student = await studentCollection.findOne({
+          _id: new ObjectId(id),
+        });
+
+        if (!student) {
+          res.json({ error: "Student not found" });
+          return;
+        }
+
+        await studentCollection.deleteOne({ _id: new ObjectId(id) });
       }
     );
 

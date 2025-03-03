@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { remote } from "../config/config";
 
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
 
@@ -14,7 +15,7 @@ const UpdatePage = () => {
 
   // Fetch student data
   useEffect(() => {
-    fetch(`https://library-card-backend.vercel.app/student/${id}`)
+    fetch(`${remote}/student/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setStudent(data);
@@ -75,16 +76,13 @@ const UpdatePage = () => {
           signature: uploadData.data.url,
         };
 
-        const updateResponse = await fetch(
-          `https://library-card-backend.vercel.app/update-signature/${id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(studentSignature),
-          }
-        );
+        const updateResponse = await fetch(`${remote}/update-signature/${id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(studentSignature),
+        });
 
         await updateResponse.json();
 
@@ -108,7 +106,7 @@ const UpdatePage = () => {
     return <h1>Loading...</h1>;
   }
 
-  console.log("Student:", student.can_update);
+  //console.log("Student:", student.can_update);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

@@ -34,9 +34,7 @@ import { IoIosCall } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { useParams } from "react-router-dom";
-
-//const local = "http://localhost:5000";
-const remote = "https://library-card-backend.vercel.app";
+import { remote } from "../config/config";
 
 export default function BackSIde() {
   const { id } = useParams();

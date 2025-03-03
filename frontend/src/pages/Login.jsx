@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiEyeOff, FiEye } from "react-icons/fi";
+import { remote } from "../config/config";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Login = () => {
     };
 
     axios
-      .post("https://library-card-backend.vercel.app/login", data)
+      .post(`${remote}/login`, data)
       .then((res) => {
         console.log(res);
 

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
+import { remote } from "../config/config";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
@@ -33,12 +34,12 @@ export default function AdminLogin() {
 
     //Send the data to the server
     axios
-      .post("https://library-card-backend.vercel.app/admin-login", user)
+      .post(`${remote}/admin-login`, user)
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
           axios
-            .post("https://library-card-backend.vercel.app/jwt", user, {
+            .post(`${remote}/jwt`, user, {
               withCredentials: true,
             })
             .then((res) => {
@@ -102,7 +103,7 @@ export default function AdminLogin() {
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+            className="w-full rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 cursor-pointer"
           >
             {loading ? "Loading..." : "Login"}
           </button>

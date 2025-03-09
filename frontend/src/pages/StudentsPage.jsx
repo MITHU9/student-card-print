@@ -185,7 +185,9 @@ const AllStudents = () => {
                     className="border-b border-gray-200 hover:bg-gray-100"
                     onClick={() => handleSingleStudent(applicant._id)}
                   >
-                    <td className="py-3 px-6 text-left">{applicant.SL}</td>
+                    <td className="py-3 px-6 text-left">{`${
+                      1 + data.indexOf(applicant)
+                    }`}</td>
                     <td className="py-3 px-6 text-left font-medium">
                       {applicant.Name}
                     </td>
@@ -306,9 +308,16 @@ const AllStudents = () => {
               {student && <img src={student?.picture} alt="profile" />}
             </div>
           </div>
-          <h2 className="border h-9 px-8 py-1 bg-green-600 font-semibold">
-            Signature
-          </h2>
+          <div>
+            <h2 className="border h-9 px-8 py-1 bg-green-600 font-semibold">
+              Signature
+            </h2>
+            <div className="mt-2">
+              {student?.signature && (
+                <img src={student?.signature} alt="signature" />
+              )}
+            </div>
+          </div>
         </div>
         <div className="mt-12">
           <div className="flex items-end flex-col">

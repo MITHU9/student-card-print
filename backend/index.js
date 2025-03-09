@@ -5,7 +5,12 @@ const cookieParser = require("cookie-parser");
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const cors = require("cors");
+const multer = require("multer");
+const csv = require("csv-parser");
+const fs = require("fs");
+
 dotenv.config();
+
 const app = express();
 
 const port = process.env.PORT || 5000;
@@ -144,7 +149,7 @@ async function run() {
     app.get("/students", verifyToken, verifyAdmin, async (req, res) => {
       const { query, session, department } = req.query;
 
-      console.log(query, session, department);
+      //console.log(query, session, department);
 
       if (query) {
         const students = await studentCollection
@@ -365,6 +370,74 @@ async function run() {
         );
 
         res.send({ success: true });
+      }
+    );
+
+    // Configure Multer for File Upload
+    const upload = multer({ dest: "uploads/" });
+
+    /**
+     * 📌 Upload CSV and Store Data in MongoDB
+     * Route: POST /api/students/upload
+     */
+    app.post(
+      "/api/students/upload",
+      verifyToken,
+      verifyAdmin,
+      upload.single("file"),
+      (req, res) => {
+        if (!req.file) {
+          return res.status(400).json({ message: "No file uploaded" });
+        }
+
+        const results = [];
+        fs.createReadStream(req.file.path)
+          .pipe(csv())
+          .on("data", (data) => {
+            //console.log(data);
+
+            // Convert necessary fields to appropriate types
+            const student = {
+              applicant_id: parseInt(data.applicant_id),
+              Admission_roll: parseInt(data.Admission_roll),
+              Dept: data["Dept.Code"]
+                ? { Code: parseInt(data["Dept.Code"]) }
+                : {}, // Only Code is nested
+              Roll: data.Roll,
+              Registration: parseInt(data.Registration),
+              Name: data.Name,
+              Current_Department: data.Current_Department,
+              Mobile: data.Mobile,
+              F_Name: data.F_Name,
+              M_Name: data.M_Name,
+              F_Occupation: data.F_Occupation,
+              M_occupation: data.M_occupation,
+              religion: data.religion,
+              Gender: data.Gender,
+              picture: data.picture,
+              family_income: parseInt(data.family_income),
+              blood_group: data.blood_group,
+              nationality: data.nationality,
+              phone: data.phone,
+              session: data.session,
+            };
+            results.push(student);
+          })
+          .on("end", async () => {
+            try {
+              //console.log("Results:", results);
+              await studentCollection.insertMany(results);
+              // fs.unlinkSync(req.file.path); // Remove file after processing
+              res.json({
+                message: "CSV uploaded and data stored successfully",
+              });
+            } catch (error) {
+              console.error("Database Insert Error:", error);
+              res
+                .status(500)
+                .json({ message: "Error storing data in database" });
+            }
+          });
       }
     );
 

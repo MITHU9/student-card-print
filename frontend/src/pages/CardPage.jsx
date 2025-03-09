@@ -1,5 +1,6 @@
+import { ChevronLeft } from "lucide-react";
 import { useRef } from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 const CardPage = () => {
   const data = useLoaderData();
   const printRef1 = useRef();
@@ -17,6 +18,14 @@ const CardPage = () => {
 
   return (
     <div>
+      <div>
+        <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 absolute top-10 left-20 cursor-pointer">
+          <Link to="/home/card-print" className="flex items-center">
+            <ChevronLeft />
+            Back
+          </Link>
+        </button>
+      </div>
       <div className="flex justify-center mt-5">
         <button
           onClick={() => handlePrint(printRef1)}

@@ -11,6 +11,7 @@ import StudentDetails from "./pages/StudentDetails.jsx";
 import Login from "./pages/Login.jsx";
 import UpdatePage from "./pages/UpdatePage.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
+import AddStudent from "./pages/AddStudent.jsx";
 
 //const local = "https://library-card-backend.vercel.app";
 const remote = "https://library-card-backend.vercel.app";
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <AdminLogin />,
+  },
+  {
+    path: "/add-student",
+    element: <AddStudent />,
   },
 ]);
 

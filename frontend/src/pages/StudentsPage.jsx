@@ -1,9 +1,10 @@
+import axios from "axios";
 import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { remote } from "../config/config";
 import useAllStudents from "../hooks/useAllStudents";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import { remote } from "../config/config";
 
 const AllStudents = () => {
   const [query, setQuery] = useState("");
@@ -12,6 +13,9 @@ const AllStudents = () => {
   const axiosSecure = useAxiosSecure();
   const [session, setSession] = useState("all");
   const [department, setDepartment] = useState("all");
+
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [modal, setModal] = useState(false);
 
   const [data, loading, isFetching, refetch] = useAllStudents(
     query,
@@ -84,6 +88,34 @@ const AllStudents = () => {
     setStudent(singleStudent);
   };
 
+  const handleEdit = (student) => {
+    setSelectedStudent(student);
+    setModal(true);
+  };
+
+  const handleChnage = (e) => {
+    setSelectedStudent({ ...selectedStudent, [e.target.name]: e.target.value });
+  };
+
+  const handleEditStudent = (e) => {
+    e.preventDefault();
+    axios
+      .put(
+        `http://localhost:5000/update-student/${selectedStudent._id}`,
+        selectedStudent
+      )
+      .then((res) => {
+        console.log(res.data);
+        alert("Updated successfully");
+        refetch();
+        setModal(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Something went wrong");
+      });
+  };
+
   if (loading) {
     return (
       <div className="text-center flex items-center justify-center w-[100vw] h-[75vh] text-2xl font-semibold text-red-500 animate-spin">
@@ -92,11 +124,80 @@ const AllStudents = () => {
     );
   }
 
-  //console.log(getSession);
-
   return (
-    <div className="lg:flex gap-3">
+    <div className="lg:flex gap-3 relative">
       <div className="w-full max-w-7xl p-4 rounded-lg shadow-lg">
+        {setModal && selectedStudent && (
+          <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
+            <div className="bg-white w-1/2 p-4 rounded-lg shadow-lg">
+              <h2 className="text-center text-2xl font-semibold">
+                Edit Student
+              </h2>
+              <form action="" onSubmit={handleEditStudent}>
+                <div className="flex flex-col gap-4">
+                  <input
+                    type="text"
+                    value={selectedStudent.Name}
+                    className="border p-2 rounded"
+                    name="Name"
+                    onChange={handleChnage}
+                  />
+                  <input
+                    type="text"
+                    value={selectedStudent.Current_Department}
+                    className="border p-2 rounded"
+                    name="Current_Department"
+                    onChange={handleChnage}
+                  />
+
+                  <input
+                    type="text"
+                    value={selectedStudent.Roll}
+                    className="border p-2 rounded"
+                    name="Roll"
+                    onChange={handleChnage}
+                  />
+                  <input
+                    type="text"
+                    value={selectedStudent.Mobile}
+                    className="border p-2 rounded"
+                    name="Mobile"
+                    onChange={handleChnage}
+                  />
+                  <input
+                    type="text"
+                    value={selectedStudent.blood_group}
+                    className="border p-2 rounded"
+                    name="blood_group"
+                    onChange={handleChnage}
+                  />
+                  <input
+                    type="text"
+                    value={selectedStudent.session}
+                    className="border p-2 rounded"
+                    name="session"
+                    onChange={handleChnage}
+                  />
+                  <button
+                    onClick={() => {
+                      setModal(false);
+                      setSelectedStudent(null);
+                    }}
+                    className="border p-2 rounded bg-red-600 text-white"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="border p-2 rounded bg-green-600 text-white"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
         <div className="flex items-center justify-between gap-4 my-2">
           <div className="my-2 relative w-56">
             <input
@@ -335,7 +436,7 @@ const AllStudents = () => {
                 Print Preview
               </Link>
               <button
-                //onClick={() => handleEdit(student?._id)}
+                onClick={() => handleEdit(student)}
                 className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"
               >
                 Edit

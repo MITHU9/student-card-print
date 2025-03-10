@@ -348,6 +348,23 @@ async function run() {
         await studentCollection.deleteOne({ _id: new ObjectId(id) });
       }
     );
+    app.put("/update-student/:id", async (req, res) => {
+      const id = req.params.id;
+      let student = req.body;
+
+      delete student._id;
+
+      const result = await studentCollection.updateOne(
+        { _id: new ObjectId(id) },
+        { $set: student }
+      );
+
+      if (result.modifiedCount > 0) {
+        res.json({ message: "Student updated successfully" });
+      } else {
+        res.status(400).json({ message: "Failed to update student" });
+      }
+    });
 
     //print complete count increase
     app.patch(

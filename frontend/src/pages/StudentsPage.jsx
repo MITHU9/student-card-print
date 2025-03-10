@@ -117,10 +117,7 @@ const AllStudents = () => {
   const handleEditStudent = (e) => {
     e.preventDefault();
     axiosSecure
-      .put(
-        `http://localhost:5000/update-student/${selectedStudent._id}`,
-        selectedStudent
-      )
+      .put(`${remote}/update-student/${selectedStudent._id}`, selectedStudent)
       .then((res) => {
         console.log(res.data);
         alert("Updated successfully");

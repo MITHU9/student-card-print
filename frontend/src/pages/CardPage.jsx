@@ -61,7 +61,7 @@ const CardPage = () => {
               <div className="flex items-center justify-end flex-col pb-[2px]">
                 <img
                   src={data?.picture}
-                  alt="Student"
+                  alt="St"
                   className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />
                 <div className="mt-1 ">

@@ -7,6 +7,7 @@ const AddStudent = () => {
   const [csvFile, setCsvFile] = useState(null);
   const [data, setData] = useState([]);
   const axiosSecure = useAxiosSecure();
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -27,19 +28,23 @@ const AddStudent = () => {
       return;
     }
 
+    setLoading(true);
+
     const formData = new FormData();
     formData.append("file", csvFile);
 
-    console.log(formData);
+    //console.log(formData);
 
     try {
       await axiosSecure.post(`${remote}/api/students/upload`, formData);
       alert("File uploaded successfully!");
       setCsvFile(null);
       setData([]);
+      setLoading(false);
     } catch (error) {
       console.error("Error uploading file", error);
       alert("Upload failed");
+      setLoading(false);
     }
   };
 
@@ -56,7 +61,7 @@ const AddStudent = () => {
         onClick={handleUpload}
         className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-600"
       >
-        Upload
+        {loading ? "Uploading..." : "Upload"}
       </button>
 
       {data.length > 0 && (

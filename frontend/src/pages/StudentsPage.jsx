@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -55,6 +54,11 @@ const AllStudents = () => {
   };
 
   const handleComplete = (id) => {
+    if (!id) {
+      alert("Please select a student");
+      return;
+    }
+
     axiosSecure
       .patch(`${remote}/${id}`, {})
       .then((res) => {
@@ -69,8 +73,17 @@ const AllStudents = () => {
   };
 
   const handleDelete = (id) => {
+    if (!id) {
+      alert("Please select a student");
+      return;
+    }
+
+    if (!window.confirm("Are you sure you want to delete this student?")) {
+      return;
+    }
+
     axiosSecure
-      .delete(`${remote}/${id}`)
+      .delete(`${remote}/delete-student/${id}`)
       .then((res) => {
         console.log(res.data);
         alert("Deleted successfully");
@@ -89,17 +102,21 @@ const AllStudents = () => {
   };
 
   const handleEdit = (student) => {
+    if (!student) {
+      alert("Please select a student");
+      return;
+    }
     setSelectedStudent(student);
     setModal(true);
   };
 
-  const handleChnage = (e) => {
+  const handleChange = (e) => {
     setSelectedStudent({ ...selectedStudent, [e.target.name]: e.target.value });
   };
 
   const handleEditStudent = (e) => {
     e.preventDefault();
-    axios
+    axiosSecure
       .put(
         `http://localhost:5000/update-student/${selectedStudent._id}`,
         selectedStudent
@@ -127,7 +144,7 @@ const AllStudents = () => {
   return (
     <div className="lg:flex gap-3 relative">
       <div className="w-full max-w-7xl p-4 rounded-lg shadow-lg">
-        {setModal && selectedStudent && (
+        {modal && selectedStudent && (
           <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
             <div className="bg-white w-1/2 p-4 rounded-lg shadow-lg">
               <h2 className="text-center text-2xl font-semibold">
@@ -140,14 +157,14 @@ const AllStudents = () => {
                     value={selectedStudent.Name}
                     className="border p-2 rounded"
                     name="Name"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     value={selectedStudent.Current_Department}
                     className="border p-2 rounded"
                     name="Current_Department"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
 
                   <input
@@ -155,41 +172,41 @@ const AllStudents = () => {
                     value={selectedStudent.Roll}
                     className="border p-2 rounded"
                     name="Roll"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     value={selectedStudent.Mobile}
                     className="border p-2 rounded"
                     name="Mobile"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     value={selectedStudent.blood_group}
                     className="border p-2 rounded"
                     name="blood_group"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
                   <input
                     type="text"
                     value={selectedStudent.session}
                     className="border p-2 rounded"
                     name="session"
-                    onChange={handleChnage}
+                    onChange={handleChange}
                   />
                   <button
                     onClick={() => {
                       setModal(false);
                       setSelectedStudent(null);
                     }}
-                    className="border p-2 rounded bg-red-600 text-white"
+                    className="border p-2 rounded bg-red-600 text-white cursor-pointer hover:bg-red-700"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="border p-2 rounded bg-green-600 text-white"
+                    className="border p-2 rounded bg-green-600 text-white cursor-pointer hover:bg-green-700"
                   >
                     Save
                   </button>
@@ -199,16 +216,18 @@ const AllStudents = () => {
           </div>
         )}
         <div className="flex items-center justify-between gap-4 my-2">
-          <div className="my-2 relative w-56">
-            <input
-              className="w-full p-2 border border-gray-300 rounded outline-none "
-              type="text"
-              placeholder="Search student by roll...."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-            <Search className="absolute right-2 top-2.5" />
-          </div>
+          {!modal && (
+            <div className="my-2 relative w-56">
+              <input
+                className="w-full p-2 border border-gray-300 rounded outline-none "
+                type="text"
+                placeholder="Search student by roll...."
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+              <Search className="absolute right-2 top-2.5" />
+            </div>
+          )}
           <div className="gap-2 p-4 w-1/2 rounded-lg shadow-md  bg-white flex items-center justify-between">
             <label className="block text-gray-700 font-semibold mb-1">
               Session:

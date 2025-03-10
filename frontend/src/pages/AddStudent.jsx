@@ -2,6 +2,7 @@ import { useState } from "react";
 import Papa from "papaparse";
 import { remote } from "../config/config";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { Link } from "react-router-dom";
 
 const AddStudent = () => {
   const [csvFile, setCsvFile] = useState(null);
@@ -49,48 +50,62 @@ const AddStudent = () => {
   };
 
   return (
-    <div className=" bg-white rounded-lg shadow-md mt-10 p-6">
-      <h2 className="text-xl font-bold mb-4">Upload Student data (CSV file)</h2>
-      <input
-        type="file"
-        accept=".csv"
-        onChange={handleFileChange}
-        className="mb-4 border border-gray-300 p-2 rounded-md mr-2 cursor-pointer"
-      />
-      <button
-        onClick={handleUpload}
-        className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-600"
-      >
-        {loading ? "Uploading..." : "Upload"}
-      </button>
+    <div>
+      <header>
+        <nav className="flex justify-center gap-5 py-5">
+          <Link
+            to="/home/card-print"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Print Card
+          </Link>
+        </nav>
+      </header>
+      <div className=" bg-white rounded-lg shadow-md mt-10 p-6">
+        <h2 className="text-xl font-bold mb-4">
+          Upload Student data (CSV file)
+        </h2>
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileChange}
+          className="mb-4 border border-gray-300 p-2 rounded-md mr-2 cursor-pointer"
+        />
+        <button
+          onClick={handleUpload}
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg cursor-pointer hover:bg-blue-600"
+        >
+          {loading ? "Uploading..." : "Upload"}
+        </button>
 
-      {data.length > 0 && (
-        <div className="mt-4">
-          <h3 className="font-bold">Preview:</h3>
-          <table className="border-collapse border border-gray-400 w-full">
-            <thead>
-              <tr>
-                {Object.keys(data[0]).map((key) => (
-                  <th key={key} className="border border-gray-300 px-2">
-                    {key}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row, index) => (
-                <tr key={index}>
-                  {Object.values(row).map((val, i) => (
-                    <td key={i} className="border border-gray-300 px-2">
-                      {val}
-                    </td>
+        {data.length > 0 && (
+          <div className="mt-4">
+            <h3 className="font-bold">Preview:</h3>
+            <table className="border-collapse border border-gray-400 w-full">
+              <thead>
+                <tr>
+                  {Object.keys(data[0]).map((key) => (
+                    <th key={key} className="border border-gray-300 px-2">
+                      {key}
+                    </th>
                   ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+              </thead>
+              <tbody>
+                {data.map((row, index) => (
+                  <tr key={index}>
+                    {Object.values(row).map((val, i) => (
+                      <td key={i} className="border border-gray-300 px-2">
+                        {val}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

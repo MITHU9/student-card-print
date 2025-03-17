@@ -58,20 +58,20 @@ const CardPage = () => {
               </h2>
             </div>
             <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
-              <div className="flex items-center justify-end flex-col pb-[2px]">
+              <div className="flex  flex-col pb-[2px]">
                 <img
                   src={"/passport.png"}
                   alt="St"
                   className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />
-                <div className="mt-1 ">
+                <div className="mt-1 w-[60.6288px]">
                   {/* <h1 className="text-[5.666px]">fardin</h1> */}
                   <img
                     src={data?.signature || "/signature.png"}
                     className="w-[52px] h-[12px] mb-[2px] object-cover"
                   />
                   <hr className="w-13" />
-                  <p className="text-[5.666px] font-semibold">
+                  <p className="text-[5.666px] w-full font-semibold">
                     Signature of Student
                   </p>
                 </div>
@@ -88,12 +88,21 @@ const CardPage = () => {
                     </p>
                     <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
-                  <div className="flex items-center">
+                  {/* <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Department</p>
                     <p className="ml-[10.8px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Current_Department}
                     </p>
+                  </div> */}
+                  <div className="flex items-start">
+                    <p className="text-[9.399px] font-medium min-w-[65px]">
+                      Department
+                    </p>
+                    <p className="text-[9.399px] -ml-[5px] font-medium break-words">
+                      : &nbsp;{data?.Current_Department}
+                    </p>
                   </div>
+
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Roll No.</p>
                     <p className="ml-[26.4px] text-[9.399px] font-medium">

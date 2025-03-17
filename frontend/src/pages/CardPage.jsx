@@ -98,9 +98,14 @@ const CardPage = () => {
                     <p className="text-[9.399px] font-medium min-w-[65px]">
                       Department
                     </p>
-                    <p className="text-[9.399px] -ml-[5px] font-medium break-words">
-                      : &nbsp;{data?.Current_Department}
-                    </p>
+                    <div className="flex ">
+                      <p className="text-[9.399px] -ml-[5px] font-medium">
+                        :&nbsp;
+                      </p>
+                      <p className="text-[9.399px] font-medium -space-y-4">
+                        {data?.Current_Department}
+                      </p>
+                    </div>
                   </div>
 
                   <div className="flex items-center">

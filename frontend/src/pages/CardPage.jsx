@@ -60,14 +60,14 @@ const CardPage = () => {
             <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
               <div className="flex items-center justify-end flex-col pb-[2px]">
                 <img
-                  src={"/sample.jpg"}
+                  src={"/passport.png"}
                   alt="St"
                   className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />
                 <div className="mt-1 ">
                   {/* <h1 className="text-[5.666px]">fardin</h1> */}
                   <img
-                    src={data?.signature}
+                    src={data?.signature || "/signature.png"}
                     className="w-[52px] h-[12px] mb-[2px] object-cover"
                   />
                   <hr className="w-13" />
@@ -84,25 +84,25 @@ const CardPage = () => {
                 <div className="-space-y-[3px] text-[9.39px]">
                   <div className="flex items-center">
                     <p className="text-[9.399px] font-semibold">
-                      Name <span className=" ml-[31.5px]">:</span> &nbsp;
+                      Name <span className=" ml-[31.37px]">:</span> &nbsp;
                     </p>
                     <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Department</p>
-                    <p className="ml-[7.5px] text-[9.399px] font-medium">
+                    <p className="ml-[10.8px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Roll No.</p>
-                    <p className="ml-[24.3px] text-[9.399px] font-medium">
+                    <p className="ml-[26.4px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Session</p>
-                    <p className="ml-[24px] text-[9.399px] font-medium">
+                    <p className="ml-[26.68px] text-[9.399px] font-medium">
                       : &nbsp;2023-2024
                     </p>
                   </div>
@@ -110,7 +110,7 @@ const CardPage = () => {
                     <p className="text-[9.399px] text-red-700 font-semibold">
                       Blood Group
                     </p>
-                    <p className="text-[9.399px] text-red-700 ml-[3px] font-semibold">
+                    <p className="text-[9px] text-red-700 ml-[3px] font-semibold">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
@@ -123,7 +123,11 @@ const CardPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] pt-5 text-left   h-[34.20px] pl-[26.56px]">
+            <div className="bg-[#CEB8B0] pt-2 text-left   h-[34.20px] pl-[26.56px]">
+              <img
+                src={data?.signature || "/provostDemo.png"}
+                className="w-[52px] h-[12px] mb-[2px] object-cover"
+              />
               <hr className="w-[56px]" />
               <p className="text-[5.666px] font-semibold">
                 Signature of Provost

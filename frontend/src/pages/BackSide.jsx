@@ -82,7 +82,7 @@ export default function BackSIde() {
 
   //console.log(issueDate);
 
-  const studenturl = `${remote}/student-details/${id}`;
+  const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
   return (
     <div>
       <div>
@@ -104,10 +104,10 @@ export default function BackSIde() {
       <div className="flex main justify-center mt-[126.72px] " ref={printRef1}>
         {/* {JSON.stringify(student)} */}
         <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
-          <p className="text-red-900 font-bold text-[8.36px] ">
+          <p className="text-red-900 font-medium text-[8.36px] ">
             Issue date : {formatDate(issueDate)}
           </p>
-          <p className="text-gray-900 font-bold text-[8.36px] ">
+          <p className="text-gray-900 font-medium text-[8.36px] ">
             Valid for&nbsp; 4 Years
           </p>
           {/* QR Code Container */}
@@ -120,11 +120,11 @@ export default function BackSIde() {
               />
             )}
           </div>
-          <p className="text-black mt-2  text-[8.26px] font-semibold">
+          <p className="text-black mt-2  text-[8.26px] font-normal">
             If this card is found anywhere other than in possession of the legal
             owner, please return it to the address below:
           </p>
-          <div className=" text-black mt-1.5 text-[8.26px] font-semibold">
+          <div className=" text-black mt-1.5 text-[8.26px] font-normal">
             <p className=" text-red-800">Registrar</p>
             <p className="text-black flex items-center justify-center ">
               <IoIosCall /> +8802588845193

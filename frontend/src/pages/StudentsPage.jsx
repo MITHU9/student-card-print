@@ -324,7 +324,7 @@ const AllStudents = () => {
                     </td>
                     <td className="py-3 px-6">
                       <img
-                        src={applicant.picture}
+                        src={"/sample.jpg"}
                         alt={applicant.Name}
                         className="w-10 h-10 rounded-full border"
                       />

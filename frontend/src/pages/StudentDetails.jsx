@@ -10,7 +10,7 @@ const StudentDetails = () => {
       <div className="bg-white shadow-lg rounded-2xl p-6 max-w-lg w-full">
         <div className="flex flex-col items-center">
           <img
-            src={data?.picture}
+            src={"/sample.jpg"}
             alt={data?.Name}
             className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg"
           />

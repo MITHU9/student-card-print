@@ -60,7 +60,7 @@ const CardPage = () => {
             <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
               <div className="flex items-center justify-end flex-col pb-[2px]">
                 <img
-                  src={data?.picture}
+                  src={"/sample.jpg"}
                   alt="St"
                   className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />
@@ -89,20 +89,20 @@ const CardPage = () => {
                     <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] font-semibold">Department</p>
-                    <p className="ml-[7.5px] text-[9.399px] font-semibold">
+                    <p className="text-[9.399px] font-medium">Department</p>
+                    <p className="ml-[7.5px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] font-semibold">Roll No.</p>
-                    <p className="ml-[24.3px] text-[9.399px] font-semibold">
+                    <p className="text-[9.399px]">Roll No.</p>
+                    <p className="ml-[24.3px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] font-semibold">Session</p>
-                    <p className="ml-[24px] text-[9.399px] font-semibold">
+                    <p className="text-[9.399px] font-medium">Session</p>
+                    <p className="ml-[24px] text-[9.399px] font-medium">
                       : &nbsp;2023-2024
                     </p>
                   </div>

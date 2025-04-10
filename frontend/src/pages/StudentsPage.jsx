@@ -1,10 +1,10 @@
+import { jsPDF } from "jspdf";
 import { Loader2, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { remote } from "../config/config";
 import useAllStudents from "../hooks/useAllStudents";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-
 const AllStudents = () => {
   const [query, setQuery] = useState("");
   const [getSession, setGetSession] = useState([]);
@@ -12,6 +12,7 @@ const AllStudents = () => {
   const axiosSecure = useAxiosSecure();
   const [session, setSession] = useState("all");
   const [department, setDepartment] = useState("all");
+  const [isPrinting, setIsPrinting] = useState(false);
 
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [modal, setModal] = useState(false);
@@ -130,6 +131,161 @@ const AllStudents = () => {
       });
   };
 
+  const printDepartmentPDFs = async () => {
+    if (department === "all") {
+      alert("Please select a specific department first");
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      alert("No students found in this department");
+      return;
+    }
+
+    setIsPrinting(true);
+
+    try {
+      // Create a new PDF document in portrait mode
+      const doc = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+      });
+
+      // Page dimensions
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const pageHeight = doc.internal.pageSize.getHeight();
+
+      // Card dimensions and spacing
+      const cardWidth = pageWidth - 20; // Full width with 10mm margins
+      const cardHeight = (pageHeight - 25) / 4; // Divide page height for 4 cards
+      const marginX = 10; // 10mm side margins
+      const marginTop = 10; // 10mm top margin
+      const gap = 5; // 5mm gap between cards
+
+      // Process all students
+      for (let i = 0; i < data.length; i++) {
+        const student = data[i];
+        const studentIndexInPage = i % 4; // 0-3 (4 students per page)
+
+        // Add new page after every 4 students (except first page)
+        if (i > 0 && i % 4 === 0) {
+          doc.addPage();
+        }
+
+        // Calculate Y position
+        const y = marginTop + (cardHeight + gap) * studentIndexInPage;
+
+        // Draw card border (optional)
+        doc.setDrawColor(200, 200, 200); // Light gray border
+        doc.rect(marginX, y, cardWidth, cardHeight);
+
+        // Add university header
+        // doc.setFontSize(12);
+        // doc.setFont("helvetica", "bold");
+        // doc.setTextColor(0, 0, 128); // Navy blue
+        // doc.text("UNIVERSITY NAME", marginX + cardWidth / 2, y + 10, {
+        //   align: "center",
+        // });
+
+        // Student photo (right side)
+        if (student.picture) {
+          try {
+            doc.addImage({
+              imageData: student.picture,
+              x: marginX + cardWidth - 30,
+              y: y + 15,
+              width: 25,
+              height: 25,
+              format: "JPEG",
+            });
+          } catch (error) {
+            console.error("Error adding photo:", error);
+          }
+        }
+
+        // Student information (left side)
+        doc.setFontSize(10);
+        doc.setFont("helvetica", "normal");
+        doc.setTextColor(0, 0, 0); // Black text
+
+        // Name
+        doc.text(`Name: ${student.Name}`, marginX + 10, y + 20);
+
+        // Department
+        doc.text(
+          `Department: ${student.Current_Department}`,
+          marginX + 10,
+          y + 27
+        );
+
+        // Roll and Session
+        doc.text(`Roll: ${student.Roll}`, marginX + 10, y + 34);
+        doc.text(`Session: ${student.session}`, marginX + 10, y + 41);
+
+        // Blood Group (if available)
+        if (student.blood_group) {
+          doc.text(`Blood Group: ${student.blood_group}`, marginX + 10, y + 48);
+        }
+        //emergency contact
+        if (student.phone) {
+          doc.text(
+            `Emergency Contact: 0${student.phone}`,
+            marginX + 10,
+            y + 55
+          );
+        }
+
+        // Signature (bottom right)
+        if (student.signature) {
+          try {
+            doc.addImage({
+              imageData: student.signature,
+              x: marginX + cardWidth - 40,
+              y: y + cardHeight - 15,
+              width: 35,
+              height: 10,
+              format: "JPEG",
+            });
+          } catch (error) {
+            console.error("Error adding signature:", error);
+          }
+        }
+
+        // Student ID (bottom left)
+        // doc.setFontSize(8);
+        // doc.setTextColor(100, 100, 100);
+        // doc.text(
+        //   `Student ID: ${student.applicant_id}`,
+        //   marginX + 10,
+        //   y + cardHeight - 5
+        // );
+
+        // Horizontal divider (except for last card on page)
+        if (studentIndexInPage < 3) {
+          doc.setDrawColor(200, 200, 200);
+          doc.line(
+            marginX,
+            y + cardHeight + gap / 2,
+            marginX + cardWidth,
+            y + cardHeight + gap / 2
+          );
+        }
+      }
+
+      // Save the PDF
+      doc.save(
+        `${department.replace(/\s+/g, "_")}_ID_Cards_${new Date()
+          .toISOString()
+          .slice(0, 10)}.pdf`
+      );
+    } catch (error) {
+      console.error("PDF generation failed:", error);
+      alert("Failed to generate PDF. Please check console for details.");
+    } finally {
+      setIsPrinting(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="text-center flex items-center justify-center w-[100vw] h-[75vh] text-2xl font-semibold text-red-500 animate-spin">
@@ -225,13 +381,13 @@ const AllStudents = () => {
               <Search className="absolute right-2 top-2.5" />
             </div>
           )}
-          <div className="gap-2 p-4 w-1/2 rounded-lg shadow-md  bg-white flex items-center justify-between">
+          <div className="gap-2 p-4 w-2/3 rounded-lg shadow-md  bg-white flex items-center justify-between">
             <label className="block text-gray-700 font-semibold mb-1">
               Session:
             </label>
             <select
               onChange={(e) => setSession(e.target.value)}
-              className="w-1/2 border p-2 rounded mb-3"
+              className="w-36 border p-2 rounded mb-3"
             >
               <option value="all">All</option>
               {getSession.map((session, index) => (
@@ -242,11 +398,11 @@ const AllStudents = () => {
             </select>
 
             <label className="block text-gray-700 font-semibold mb-1">
-              Department:
+              Dept.:
             </label>
             <select
               onChange={(e) => setDepartment(e.target.value)}
-              className="w-1/2 border p-2 rounded"
+              className="w-36 border p-2 rounded"
             >
               <option value="all">All</option>
               <option value="Computer Science and Engineering">CSE</option>
@@ -274,6 +430,25 @@ const AllStudents = () => {
               <option value="History">History</option>
               <option value="Tourism and Hospitality Management">THM</option>
             </select>
+
+            {/* pdf generate */}
+            <button
+              onClick={printDepartmentPDFs}
+              disabled={department === "all" || isPrinting}
+              className={`ml-4 p-2 rounded ${
+                department === "all" || isPrinting
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700 text-white"
+              }`}
+            >
+              {isPrinting ? (
+                <span className="flex items-center">
+                  <Loader2 className="animate-spin mr-2" /> Generating PDFs...
+                </span>
+              ) : (
+                "Dept. Wise PDF"
+              )}
+            </button>
           </div>
         </div>
         <div className="overflow-x-auto overflow-y-auto h-[85vh] lg:w-5xl p-4">

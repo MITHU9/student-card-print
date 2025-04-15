@@ -3,16 +3,17 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import App from "./App.jsx";
+import { remote } from "./config/config.js";
 import "./index.css";
+import AddStudent from "./pages/AddStudent.jsx";
+import AdminLogin from "./pages/AdminLogin.jsx";
 import BackSide from "./pages/BackSide.jsx";
 import CardPage from "./pages/CardPage.jsx";
-import AllStudents from "./pages/StudentsPage.jsx";
-import StudentDetails from "./pages/StudentDetails.jsx";
 import Login from "./pages/Login.jsx";
+import CombinedCardPrint from "./pages/PrintBoth.jsx";
+import StudentDetails from "./pages/StudentDetails.jsx";
+import AllStudents from "./pages/StudentsPage.jsx";
 import UpdatePage from "./pages/UpdatePage.jsx";
-import AdminLogin from "./pages/AdminLogin.jsx";
-import AddStudent from "./pages/AddStudent.jsx";
-import { remote } from "./config/config.js";
 
 //const local = "https://library-card-backend.vercel.app";
 //const remote = "https://library-card-backend.vercel.app";
@@ -39,6 +40,11 @@ const router = createBrowserRouter([
   {
     path: "/print-backside/:id",
     element: <BackSide />,
+  },
+  {
+    path: "/print-both-side/:id",
+    element: <CombinedCardPrint />,
+    loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
   },
   {
     path: "/student-details/:id",

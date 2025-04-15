@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { remote } from "../config/config";
 
-const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
+// const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
+const imageHostingApi = `https://api.imgbb.com/1/upload?key=aaa3602bfadd7d7abefeceed90bf5997`;
 
 const UpdatePage = () => {
   const { id } = useParams();
   const [flag, setFlag] = useState(false);
   const [student, setStudent] = useState({});
   const [signature, setSignature] = useState(null);
+  const [studentImage, setStudentImage] = useState(null);
   const [imageError, setImageError] = useState("");
 
   const [loading, setLoading] = useState(true);
@@ -51,54 +53,98 @@ const UpdatePage = () => {
       reader.readAsDataURL(file);
     }
   };
+  const handleImageUploadChange = (e) => {
+    const file = e.target.files[0];
+    console.log("File:", file);
+    if (file) {
+      const img = new Image();
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        img.onload = () => {
+          const { width, height } = img;
+          if (width > 300 || height > 300) {
+            setImageError("Image dimensions must be 300x300 or less.");
+            setStudentImage(null);
+          } else {
+            setImageError("");
+            setStudentImage(file);
+          }
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleClick = async () => {
     setLoading(true);
+
     if (!signature) {
       alert("Please upload a valid signature image.");
+      setLoading(false);
       return;
     }
 
-    const formData = new FormData();
-    formData.append("image", signature);
-    //console.log("Form Data:", formData);
+    if (!studentImage) {
+      alert("Please upload a valid student image.");
+      setLoading(false);
+      return;
+    }
 
     try {
-      const uploadResponse = await fetch(imageHostingApi, {
+      // Upload student image
+      const studentImgFormData = new FormData();
+      studentImgFormData.append("image", studentImage);
+      const studentImgRes = await fetch(imageHostingApi, {
         method: "POST",
-        body: formData,
+        body: studentImgFormData,
       });
+      const studentImgData = await studentImgRes.json();
+      const studentImageUrl = studentImgData?.data?.url;
 
-      const uploadData = await uploadResponse.json();
+      // Upload signature image
+      const signatureFormData = new FormData();
+      signatureFormData.append("image", signature);
+      const signatureRes = await fetch(imageHostingApi, {
+        method: "POST",
+        body: signatureFormData,
+      });
+      const signatureData = await signatureRes.json();
+      const signatureUrl = signatureData?.data?.url;
 
-      if (uploadData.data && uploadData.data.url) {
-        const studentSignature = {
-          signature: uploadData.data.url,
+      if (signatureUrl && studentImageUrl) {
+        const payload = {
+          studentImage: studentImageUrl,
+          signature: signatureUrl,
         };
 
-        const updateResponse = await fetch(`${remote}/update-signature/${id}`, {
+        console.log("Payload to send:", payload);
+
+        const updateRes = await fetch(`${remote}/update-signature/${id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(studentSignature),
+          body: JSON.stringify(payload),
         });
 
-        await updateResponse.json();
-
-        if (updateResponse.ok) {
+        if (updateRes.ok) {
           setFlag(true);
           setLoading(false);
-          alert("Signature uploaded and updated successfully!");
+          alert("Images uploaded and updated successfully!");
         } else {
-          alert("Failed to update signature. Please try again.");
+          alert("Failed to update in database.");
+          setLoading(false);
         }
       } else {
-        alert("Failed to upload image. Please try again.");
+        alert("Failed to upload both images. Try again.");
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Error uploading signature:", error);
-      alert("An error occurred while uploading the signature.");
+    } catch (err) {
+      console.error("Error:", err);
+      alert("Something went wrong.");
+      setLoading(false);
     }
   };
 
@@ -221,6 +267,19 @@ const UpdatePage = () => {
             </label>
             <input
               onChange={handleChange}
+              type="file"
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+            {imageError && <p className="text-red-500">{imageError}</p>}
+          </div>
+          {/* upload student image */}
+
+          <div className="col-span-2">
+            <label className="block text-gray-700">
+              Upload Student Image (300x300 or less)
+            </label>
+            <input
+              onChange={handleImageUploadChange}
               type="file"
               className="w-full px-4 py-2 border rounded-lg"
             />

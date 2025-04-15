@@ -252,7 +252,7 @@ async function run() {
     //get student by id
     app.get("/print-preview/:id", async (req, res) => {
       const id = req.params.id;
-      //console.log(id);
+      console.log(id);
       const student = await studentCollection.findOne({
         _id: new ObjectId(id),
       });
@@ -262,15 +262,31 @@ async function run() {
     // Update student signature URL
     app.patch("/update-signature/:id", async (req, res) => {
       const id = req.params.id;
-      const { signature } = req.body;
+      console.log("ID:", id);
+      const { studentImage, signature } = req.body;
+
+      console.log("Signature URL:", signature);
+      console.log("Student Image URL:", studentImage);
+
+      if (!studentImage || !signature) {
+        return res.status(400).json({ error: "Missing image URLs" });
+      }
       //console.log("ID:", id);
       const numID = parseInt(id);
       const filter = { Registration: numID };
-      const updateDoc = { $set: { signature: signature } };
+      // const updateDoc = {
+      //   $set: { signature: signature, studentImage: studentImage },
+      // };
 
       const result = await studentCollection.updateOne(
         { Registration: numID },
-        { $set: { signature: signature, can_update: false } }
+        {
+          $set: {
+            signature: signature,
+            picture: studentImage,
+            can_update: false,
+          },
+        }
       );
 
       if (result.modifiedCount > 0) {

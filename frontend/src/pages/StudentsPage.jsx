@@ -206,7 +206,7 @@ const AllStudents = () => {
         // Student information (left side)
         doc.setFontSize(10);
         doc.setFont("helvetica", "normal");
-        doc.setTextColor(0, 0, 0); // Black text
+        doc.setTextColor(0, 0, 0);
 
         // Name
         doc.text(`Name: ${student.Name}`, marginX + 10, y + 20);
@@ -222,11 +222,10 @@ const AllStudents = () => {
         doc.text(`Roll: ${student.Roll}`, marginX + 10, y + 34);
         doc.text(`Session: ${student.session}`, marginX + 10, y + 41);
 
-        // Blood Group (if available)
         if (student.blood_group) {
           doc.text(`Blood Group: ${student.blood_group}`, marginX + 10, y + 48);
         }
-        //emergency contact
+
         if (student.phone) {
           doc.text(
             `Emergency Contact: 0${student.phone}`,
@@ -660,6 +659,20 @@ const AllStudents = () => {
               className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700"
             >
               Print Backside
+            </Link>
+
+            {/* Link for print both side */}
+            <Link
+              to={`/print-both-side/${student?._id}`}
+              onClick={(e) => {
+                if (!student) {
+                  e.preventDefault();
+                  alert("Please select a student.");
+                }
+              }}
+              className="px-4 py-2 bg-green-800 font-semibold text-white rounded hover:bg-green-700 ml-2"
+            >
+              Print Both Side
             </Link>
           </div>
         </div>

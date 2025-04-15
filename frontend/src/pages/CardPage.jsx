@@ -60,7 +60,7 @@ const CardPage = () => {
             <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
               <div className="flex  flex-col pb-[2px]">
                 <img
-                  src={"/passport.png"}
+                  src={data?.picture}
                   alt="St"
                   className="h-[64.0512px] w-[51.6288px] mt-7 "
                 />

@@ -57,26 +57,15 @@ const CardPage = () => {
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex bg-[#F7F0EE] items-center pl-[26.56px] h-[118.26px]">
-              <div className="flex  flex-col pb-[2px]">
+            <div className="flex bg-[#F7F0EE]  items-center pl-[26.56px] h-[118.26px]">
+              <div className=" ">
                 <img
                   src={data?.picture}
                   alt="St"
-                  className="h-[64.0512px] w-[51.6288px] mt-7 "
+                  className="h-[64.0512px] w-[51.6288px] "
                 />
-                <div className="mt-1 w-[60.6288px]">
-                  {/* <h1 className="text-[5.666px]">fardin</h1> */}
-                  <img
-                    src={data?.signature || "/signature.png"}
-                    className="w-[52px] h-[12px] mb-[2px] object-cover"
-                  />
-                  <hr className="w-13" />
-                  <p className="text-[5.666px] w-full font-semibold">
-                    Signature of Student
-                  </p>
-                </div>
               </div>
-              <div className="pl-[32.80px]">
+              <div className="pl-[20.80px] pr-2">
                 <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
                   <hr className="w-[118px]" />
@@ -137,15 +126,29 @@ const CardPage = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] pt-2 text-left   h-[34.20px] pl-[26.56px]">
-              <img
-                src={data?.signature || "/provostDemo.png"}
-                className="w-[52px] h-[12px] mb-[2px] object-cover"
-              />
-              <hr className="w-[56px]" />
-              <p className="text-[5.666px] font-semibold">
-                Signature of Provost
-              </p>
+            <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] px-[26.56px]">
+              <div className=" w-[60.6288px]">
+                {/* <h1 className="text-[5.666px]">fardin</h1> */}
+                <img
+                  src={data?.signature || "/signature.png"}
+                  className="w-[52px] h-[12px] mb-[2px] object-cover"
+                />
+                <hr className="w-13" />
+                <p className="text-[5.666px] w-full font-semibold mb-1">
+                  Signature of Student
+                </p>
+              </div>
+
+              <div>
+                <img
+                  src={data?.signature || "/provostDemo.png"}
+                  className="w-[52px] h-[12px] mb-[2px] object-cover"
+                />
+                <hr className="w-[56px]" />
+                <p className="text-[5.666px] font-semibold mb-1">
+                  Signature of Provost
+                </p>
+              </div>
             </div>
           </div>
         </div>

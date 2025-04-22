@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { remote } from "../config/config";
-
 // const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
 const imageHostingApi = `https://api.imgbb.com/1/upload?key=aaa3602bfadd7d7abefeceed90bf5997`;
 
@@ -12,6 +11,7 @@ const UpdatePage = () => {
   const [signature, setSignature] = useState(null);
   const [studentImage, setStudentImage] = useState(null);
   const [imageError, setImageError] = useState("");
+  const [profileImageError, setProfileImageError] = useState("");
 
   const [loading, setLoading] = useState(true);
 
@@ -64,10 +64,10 @@ const UpdatePage = () => {
         img.onload = () => {
           const { width, height } = img;
           if (width > 300 || height > 300) {
-            setImageError("Image dimensions must be 300x300 or less.");
+            setProfileImageError("Image dimensions must be 300x300 or less.");
             setStudentImage(null);
           } else {
-            setImageError("");
+            setProfileImageError("");
             setStudentImage(file);
           }
         };
@@ -163,8 +163,8 @@ const UpdatePage = () => {
         <div className="grid grid-cols-2 gap-4">
           <div className="text-center col-span-2">
             <img
-              src={student?.picture || "/default-image.jpg"}
-              alt="Applicant"
+              src={student.picture}
+              alt="No Image"
               className="w-32 h-32 rounded-full border-2 mx-auto"
             />
           </div>
@@ -283,7 +283,9 @@ const UpdatePage = () => {
               type="file"
               className="w-full px-4 py-2 border rounded-lg"
             />
-            {imageError && <p className="text-red-500">{imageError}</p>}
+            {profileImageError && (
+              <p className="text-red-500">{profileImageError}</p>
+            )}
           </div>
 
           <div className="col-span-2">

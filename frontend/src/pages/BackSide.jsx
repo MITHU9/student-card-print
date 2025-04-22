@@ -80,7 +80,7 @@ export default function BackSIde() {
             Valid for&nbsp; 4 Years
           </p>
           {/* QR Code Container */}
-          <div className="flex justify-center items-center mt-2  border border-dashed h-[45.5424px] w-[45.5808px] bg-[#CEB8B0] mx-auto p-[2px]">
+          <div className="flex justify-center items-center mt-2  border border-dashed h-[49px] w-[50px] bg-[#CEB8B0] mx-auto p-[2px]">
             {student && (
               <QRCode
                 value={studenturl}

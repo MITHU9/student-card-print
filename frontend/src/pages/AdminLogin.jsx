@@ -34,21 +34,14 @@ export default function AdminLogin() {
 
     //Send the data to the server
     axios
-      .post(`${remote}/admin-login`, user)
+      .post(`${remote}/admin-login`, user, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
-          axios
-            .post(`${remote}/jwt`, user, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              console.log(res);
-            });
-          setLoading(false);
-          navigate("/home");
-          setError("");
-        }
+        setLoading(false);
+        navigate("/home");
+        setError("");
       })
       .catch((err) => {
         console.log(err);

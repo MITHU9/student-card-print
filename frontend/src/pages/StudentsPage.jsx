@@ -23,26 +23,9 @@ const AllStudents = () => {
     department
   );
 
-  useEffect(() => {
-    refetch();
-  }, [query, session, department]);
-
-  useEffect(() => {
-    axiosSecure
-      .get(`${remote}/all-session`)
-      .then((res) => {
-        if (res) {
-          setGetSession(res.data);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [student]);
-
   const handleUpdate = (id) => {
     axiosSecure
-      .patch(`${remote}/${id}`, {})
+      .patch(`${remote}/toggle-update/${id}`, {})
       .then((res) => {
         console.log(res.data);
         alert("Updated successfully");
@@ -285,6 +268,23 @@ const AllStudents = () => {
     }
   };
 
+  useEffect(() => {
+    refetch();
+  }, [query, session, department]);
+
+  useEffect(() => {
+    axiosSecure
+      .get(`${remote}/all-session`)
+      .then((res) => {
+        if (res) {
+          setGetSession(res.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [student]);
+
   if (loading) {
     return (
       <div className="text-center flex items-center justify-center w-[100vw] h-[75vh] text-2xl font-semibold text-red-500 animate-spin">
@@ -297,7 +297,7 @@ const AllStudents = () => {
     <div className="lg:flex gap-3 relative">
       <div className="w-full max-w-7xl p-4 rounded-lg shadow-lg">
         {modal && selectedStudent && (
-          <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center">
+          <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex items-center justify-center z-30">
             <div className="bg-white w-1/2 p-4 rounded-lg shadow-lg">
               <h2 className="text-center text-2xl font-semibold">
                 Edit Student
@@ -512,14 +512,18 @@ const AllStudents = () => {
                     </td>
                     <td className="py-3 px-6">
                       <button
+                        type="button"
                         className="
                         disabled:opacity-50 disabled:cursor-not-allowed
                       border w-full px-4 py-1 bg-green-600 text-white rounded-lg cursor-pointer
-                      "
+                       "
                         disabled={
                           !Object.keys(applicant).includes("can_update")
                         }
-                        onClick={() => handleUpdate(applicant._id)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleUpdate(applicant._id);
+                        }}
                       >
                         {Object.keys(applicant).includes("can_update") ? (
                           <span>{applicant.can_update ? "Yes" : "No"}</span>

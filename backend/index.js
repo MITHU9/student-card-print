@@ -52,21 +52,21 @@ async function run() {
     const userCollection = client.db("students-db").collection("users");
 
     //auth related APIs
-    const createToken = (res, userId) => {
-      const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
+    app.post("/jwt", (req, res) => {
+      const user = req.body;
+      const token = jwt.sign(user, process.env.JWT_SECRET, {
         expiresIn: "5h",
       });
-
-      // Create a cookie with the token
-      res.cookie("admin_token", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-      });
-
-      return token;
-    };
+      res
+        .cookie("admin_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+        })
+        .send({
+          success: true,
+        });
+    });
 
     //verify token
     const verifyToken = (req, res, next) => {
@@ -89,11 +89,11 @@ async function run() {
     };
 
     const verifyAdmin = async (req, res, next) => {
-      const userId = req.user.userId;
+      const userName = req.user.username;
 
       //console.log("admin", userName);
 
-      const user = await userCollection.findOne({ _id: userId });
+      const user = await userCollection.findOne({ username: userName });
 
       if (user.role === "admin") {
         next();
@@ -119,9 +119,6 @@ async function run() {
       if (!validPass) {
         return res.status(400).send({ message: "Invalid credentials" });
       }
-
-      // Create a token and set it in a cookie
-      const token = createToken(res, user._id);
 
       res.status(200).send({ message: "Login successful" });
     });

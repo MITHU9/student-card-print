@@ -18,37 +18,44 @@ export default function AdminLogin() {
     setPasswordVisible((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!username || !password) {
       setError("Please enter both email and password.");
       return;
     }
 
     setLoading(true);
+    setError("");
 
-    const user = {
-      username: username,
-      password: password,
-    };
+    try {
+      const user = {
+        username: username,
+        password: password,
+      };
 
-    //Send the data to the server
-    axios
-      .post(`${remote}/admin-login`, user, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log(res);
+      // First authenticate
+      const loginRes = await axios.post(`${remote}/admin-login`, user);
+      if (loginRes.status === 200) {
+        // Set JWT cookie
+        const jwtRes = await axios.post(`${remote}/jwt`, user, {
+          withCredentials: true,
+        });
+
+        if (jwtRes.status === 200) {
+          await new Promise((resolve) => setTimeout(resolve, 300));
+        }
         setLoading(false);
         navigate("/home");
-        setError("");
-      })
-      .catch((err) => {
-        console.log(err);
-        setError(
-          "Invalid credentials! Please use correct username and password."
-        );
-      });
+      }
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+      setError(
+        "Invalid credentials! Please use correct username and password."
+      );
+    }
   };
 
   return (

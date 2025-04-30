@@ -12,6 +12,8 @@ export default function BackSIde() {
   const [issueDate, setIssueDate] = useState(null);
 
   const printRef1 = useRef();
+  const printRef2 = useRef();
+  console.log(printRef2);
 
   useEffect(() => {
     const fetchStudent = async () => {
@@ -70,7 +72,11 @@ export default function BackSIde() {
           className="border border-amber-400  p-2 rounded-lg cursor-pointer"
         />
       </div>
-      <div className="flex main justify-center mt-[126.72px] " ref={printRef1}>
+      {/* print for non resident */}
+      <div
+        className="flex flex-col gap-3.5 main justify-center items-center mt-[126.72px]"
+        ref={printRef1}
+      >
         {/* {JSON.stringify(student)} */}
         <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
           <p className="text-red-900 font-medium text-[8.36px] ">
@@ -108,7 +114,81 @@ export default function BackSIde() {
             className="bg-blue-800 text-white px-4 py-2 rounded-xl ml-12 cursor-pointer"
             onClick={() => handlePrint(printRef1)}
           >
-            Print Back Part
+            Print Non Resident Card
+          </button>
+
+          {/* <button
+            className="bg-blue-800 text-white px-4 py-2 rounded-xl ml-12 cursor-pointer"
+            onClick={() => handlePrint(printRef2)}
+          >
+            Print Resident Card
+          </button> */}
+        </div>
+
+        <style>
+          {`
+        @media print {
+          button {
+            display: none;
+          }
+            .main{
+            margin-top: 0px;
+            }
+        }
+      `}
+        </style>
+      </div>
+
+      {/* print for resident */}
+      <div
+        className="flex flex-col gap-3.5 main justify-center items-center mt-[126.72px] "
+        ref={printRef2}
+      >
+        {/* {JSON.stringify(student)} */}
+        <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
+          <p className="text-red-900 font-medium text-[8.36px] ">
+            Issue date : {formatDate(issueDate)}
+          </p>
+          <p className="text-gray-900 font-medium text-[8.36px] ">
+            Valid for&nbsp; 4 Years
+          </p>
+          {/* QR Code Container */}
+          <div className="flex justify-center items-center mt-2  border border-dashed h-[49px] w-[50px] bg-[#ffffff] mx-auto p-[2px]">
+            {student && (
+              <QRCode
+                value={studenturl}
+                bgColor="white"
+                className="w-full h-full"
+              />
+            )}
+          </div>
+          <p className="text-black mt-2  text-[8.26px] font-normal">
+            If this card is found anywhere other than in possession of the legal
+            owner, please return it to the address below:
+          </p>
+          <div className=" text-black mt-1.5 text-[8.26px] font-normal">
+            <p className=" text-red-800">Registrar</p>
+            <p className="text-black flex items-center justify-center ">
+              <IoIosCall /> +8802588845193
+            </p>
+            <p className="text-black flex items-center justify-center ">
+              <MdEmail className="mr-0.5" /> registraroffice@pust.ac.bd
+            </p>
+          </div>
+        </div>
+        <div>
+          {/* <button
+            className="bg-blue-800 text-white px-4 py-2 rounded-xl ml-12 cursor-pointer"
+            onClick={() => handlePrint(printRef1)}
+          >
+            Print Non Resident Card
+          </button> */}
+
+          <button
+            className="bg-blue-800 text-white px-4 py-2 rounded-xl ml-12 cursor-pointer"
+            onClick={() => handlePrint(printRef2)}
+          >
+            Print Resident Card
           </button>
         </div>
 

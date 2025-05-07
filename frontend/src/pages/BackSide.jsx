@@ -79,7 +79,7 @@ export default function BackSIde() {
       >
         {/* {JSON.stringify(student)} */}
         <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
-          <p className="text-red-900 font-medium text-[8.36px] ">
+          <p className="text-[#783631] font-medium text-[8.36px] ">
             Issue date : {formatDate(issueDate)}
           </p>
           <p className="text-gray-900 font-medium text-[8.36px] ">
@@ -100,7 +100,7 @@ export default function BackSIde() {
             owner, please return it to the address below:
           </p>
           <div className=" text-black mt-1.5 text-[8.26px] font-normal">
-            <p className=" text-red-800">Registrar</p>
+            <p className=" text-[#783631]">Registrar</p>
             <p className="text-black flex items-center justify-center ">
               <IoIosCall /> +8802588845193
             </p>
@@ -146,7 +146,7 @@ export default function BackSIde() {
       >
         {/* {JSON.stringify(student)} */}
         <div className="bg-[#CEB8B0] h-[204.05px] w-[324px] px-6 py-[18.72px] shadow-lg text-center">
-          <p className="text-red-900 font-medium text-[8.36px] ">
+          <p className="text-[#783631] font-medium text-[8.36px] ">
             Issue date : {formatDate(issueDate)}
           </p>
           <p className="text-gray-900 font-medium text-[8.36px] ">
@@ -167,7 +167,7 @@ export default function BackSIde() {
             owner, please return it to the address below:
           </p>
           <div className=" text-black mt-1.5 text-[8.26px] font-normal">
-            <p className=" text-red-800">Registrar</p>
+            <p className=" text-[#783631]">Registrar</p>
             <p className="text-black flex items-center justify-center ">
               <IoIosCall /> +8802588845193
             </p>

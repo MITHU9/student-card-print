@@ -48,23 +48,25 @@ const CardPage = () => {
             className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border"
           >
             <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
+              {/* pl-[26.56px] */}
               <img
                 src="/PUST_Logo.svg"
                 alt="logo"
                 className="w-[23.712px] h-[32.352px]"
               />
-              <h2 className="text-[9.79px] py-[2px] font-bold text-red-700">
+              <h2 className="text-[9.79px] mt-1 font-bold text-[#783631]">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex bg-[#F7F0EE]  items-center pl-[26.56px] h-[118.26px]">
+            <div className="flex bg-[#fff6e2]/59  items-center pl-[26.56px] h-[118.26px]">
               <div className=" ">
                 <img
                   src={data?.picture}
                   alt="St"
-                  className="h-[64.0512px] w-[51.6288px] "
+                  className="h-[68.28px] w-[53.28px]"
                 />
               </div>
+              {/* h-[64.0512px]  w-[51.6288px]*/}
               <div className="pl-[20.80px] pr-2">
                 <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
@@ -73,7 +75,7 @@ const CardPage = () => {
                 <div className="-space-y-[3px] text-[9.39px]">
                   <div className="flex items-center">
                     <p className="text-[9.399px] font-semibold">
-                      Name <span className=" ml-[31.37px]">:</span> &nbsp;
+                      Name <span className=" ml-[31.37px]">:</span>&nbsp;
                     </p>
                     <p className="text-[9.399px]   font-bold">{data?.Name}</p>
                   </div>
@@ -91,7 +93,7 @@ const CardPage = () => {
                       <p className="text-[9.399px] -ml-[5px] font-medium">
                         :&nbsp;
                       </p>
-                      <p className="text-[9.399px] font-medium -space-y-4">
+                      <p className="text-[9.399px] font-medium leading-normal -space-y-4">
                         {data?.Current_Department}
                       </p>
                     </div>
@@ -100,40 +102,42 @@ const CardPage = () => {
                   <div className="flex items-center">
                     <p className="text-[9.399px]">Roll No.</p>
                     <p className="ml-[26.4px] text-[9.399px] font-medium">
-                      : &nbsp;{data?.Roll}
+                      :&nbsp;{data?.Roll}
                     </p>
                   </div>
                   <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Session</p>
                     <p className="ml-[26.68px] text-[9.399px] font-medium">
-                      : &nbsp;2023-2024
+                      :&nbsp;2023-2024
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] text-red-700 font-semibold">
+                    <p className="text-[9.399px] text-[#783631] font-semibold">
                       Blood Group
                     </p>
-                    <p className="text-[9px] text-red-700 ml-[3px] font-semibold">
-                      : &nbsp;{data?.blood_group}
+                    <p className="text-[9px] text-[#783631] ml-[3px] font-semibold">
+                      :&nbsp;{data?.blood_group}
                     </p>
                   </div>
                   <div className="flex items-center ">
                     <p className="text-[9.399px] font-semibold">Emergency</p>
                     <p className="text-[9.399px] ml-[10px] font-semibold">
-                      : &nbsp;+880{data?.phone}
+                      :&nbsp;+880{data?.phone}
                     </p>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* bottom */}
             <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] px-[26.56px]">
               <div className=" w-[60.6288px]">
                 {/* <h1 className="text-[5.666px]">fardin</h1> */}
                 <img
                   src={data?.signature || "/signature.png"}
-                  className="w-[52px] h-[12px] mb-[2px] object-cover"
+                  className="w-[52px] h-[12px] mb-[2px] object-cover "
                 />
-                <hr className="w-13" />
+                <hr className="w-14" />
                 <p className="text-[5.666px] w-full font-semibold mb-1">
                   Signature of Student
                 </p>
@@ -142,7 +146,7 @@ const CardPage = () => {
               <div>
                 <img
                   src={data?.signature || "/provostDemo.png"}
-                  className="w-[52px] h-[12px] mb-[2px] object-cover"
+                  className="w-[52px] h-[12px] mb-[2px] object-cover "
                 />
                 <hr className="w-[56px]" />
                 <p className="text-[5.666px] font-semibold mb-1">

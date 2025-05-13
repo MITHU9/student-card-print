@@ -629,6 +629,7 @@ const AllStudents = () => {
               >
                 Print Preview
               </Link>
+
               <button
                 onClick={() => handleEdit(student)}
                 className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"
@@ -649,6 +650,21 @@ const AllStudents = () => {
               >
                 Delete
               </button>
+            </div>
+
+            <div className="flex w-1/2 justify-between  gap-2 mt-4">
+              <Link
+                to={`/print-frontside/${student?._id}`}
+                onClick={(e) => {
+                  if (!student) {
+                    e.preventDefault();
+                    alert("Please select a student.");
+                  }
+                }}
+                className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"
+              >
+                Print Front
+              </Link>
             </div>
           </div>
           <div>

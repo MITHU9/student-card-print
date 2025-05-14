@@ -47,24 +47,24 @@ const FrontPart = () => {
             ref={printRef1}
             className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border"
           >
-            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
+            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[16.56px]">
               <img
                 src="/PUST_Logo.svg"
                 alt="logo"
                 className="w-[23.712px] h-[32.352px]"
               />
-              <h2 className="text-[9.79px] py-[2px] font-bold text-[#783631]">
+              <h2 className="text-[9.79px] py-[2px] font-bold text-[#6A0000]">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
             </div>
-            <div className="flex bg-[#fff6e2]/59 items-center pl-[26.56px] h-[118.26px]">
-              <div className="flex  flex-col pb-[2px]">
+            <div className="flex bg-[#fff6e2]/59 items-center pl-[16.56px] h-[118.26px]">
+              <div className="flex  flex-col ">
                 <img
                   src={data?.picture}
                   alt="St"
-                  className="h-[64.0512px] w-[51.6288px] mt-7 "
+                  className="h-[64.0512px] w-[51.6288px] mt-6 "
                 />
-                <div className="mt-1 w-[60.6288px]">
+                <div className="mt-3 w-[60.6288px]">
                   {/* <h1 className="text-[5.666px]">fardin</h1> */}
                   <img
                     src={data?.signature || "/signature.png"}
@@ -76,7 +76,7 @@ const FrontPart = () => {
                   </p>
                 </div>
               </div>
-              <div className="pl-[10.80px] pr-2">
+              <div className="pl-[8.80px] pr-2">
                 <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
                   Student Identity Card
                   <hr className="w-[118px]" />
@@ -121,10 +121,10 @@ const FrontPart = () => {
                     </p>
                   </div>
                   <div className="flex items-center">
-                    <p className="text-[9.399px] text-[#783631] font-semibold">
+                    <p className="text-[9.399px] text-[#6A0000] font-semibold">
                       Blood Group
                     </p>
-                    <p className="text-[9px] text-[#783631] ml-[3px] font-semibold">
+                    <p className="text-[9px] text-[#6A0000] ml-[3px] font-semibold">
                       : &nbsp;{data?.blood_group}
                     </p>
                   </div>
@@ -137,7 +137,7 @@ const FrontPart = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#CEB8B0] pt-2 text-left   h-[34.20px] pl-[26.56px]">
+            <div className="bg-[#CEB8B0] pt-2 text-left   h-[34.20px] pl-[16.56px]">
               <img
                 src={data?.signature || "/provostDemo.png"}
                 className="w-[52px] h-[12px] mb-[2px] object-cover"

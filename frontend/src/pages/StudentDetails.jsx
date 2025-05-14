@@ -15,17 +15,15 @@ const StudentDetails = () => {
             className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg"
           />
           <h2 className="text-xl font-semibold mt-4">{data?.Name}</h2>
-          <p className="text-gray-600">
+          {/* <p className="text-gray-600">
             {data?.Current_Department} (Dept: {data?.Dept?.Code})
-          </p>
-          <p className="text-gray-600">
-            Roll: {data?.Roll} | Reg: {data?.Registration}
-          </p>
+          </p> */}
+          <p className="text-gray-600">Roll: {data?.Roll}</p>
         </div>
         <div className="mt-4 space-y-2 text-sm text-gray-700">
-          <p>
+          {/* <p>
             <span className="font-semibold">Gender:</span> {data?.Gender}
-          </p>
+          </p> */}
           <p>
             <span className="font-semibold">Blood Group:</span>{" "}
             {data?.blood_group}
@@ -34,34 +32,35 @@ const StudentDetails = () => {
             <span className="font-semibold">Nationality:</span>{" "}
             {data?.nationality}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Religion:</span> {data?.religion}
-          </p>
+          </p> */}
           <p>
             <span className="font-semibold">Father&apos;s Name:</span>{" "}
             {data?.F_Name}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Father&apos;s Occupation:</span>{" "}
             {data?.F_Occupation}
-          </p>
+          </p> */}
           <p>
             <span className="font-semibold">Mother&apos;s Name:</span>{" "}
             {data?.M_Name}
           </p>
-          <p>
+          {/* <p>
             <span className="font-semibold">Mother&apos;s Occupation:</span>{" "}
             {data?.M_occupation}
-          </p>
+          </p> */}
           {/* <p>
             <span className="font-semibold">Family Income:</span>{" "}
             {data?.family_income} BDT
           </p> */}
-          <p>
+          {/* <p>
             <span className="font-semibold">Mobile:</span> 0{data?.Mobile}
-          </p>
+          </p> */}
           <p>
-            <span className="font-semibold">Phone:</span> 0{data?.phone}
+            <span className="font-semibold">Emergency Number:</span> 0
+            {data?.phone}
           </p>
           {/* <p>
             <span className="font-semibold">Admission Roll:</span>{" "}

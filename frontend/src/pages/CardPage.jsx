@@ -60,9 +60,15 @@ const CardPage = () => {
               </h2>
               {/* text-[9.79px] */}
             </div>
-            <div className="flex flex-col justify-center bg-white h-[118.26px] pl-[16.56px]">
+            <div className="flex flex-col relative justify-center bg-white h-[118.26px] pl-[16.56px]">
               {/* bg-[#fff6e2]/59 */}
-              <div className="flex  items-center mt-6 ">
+              <div
+                className={`${
+                  data.Name.length > 25 || data?.Dept.Code == 6
+                    ? "flex  items-center -mt-1"
+                    : "flex  items-center -mt-2"
+                }  `}
+              >
                 <div className=" ">
                   {/* border border-gray-200/50 */}
                   <img
@@ -79,11 +85,19 @@ const CardPage = () => {
                     <hr className="w-[118px]" />
                   </h2>
                   <div className="-space-y-[3px] text-[9.39px]">
-                    <div className="flex items-center">
-                      <p className="text-[9.399px] font-semibold">
-                        Name <span className=" ml-[31.37px]">:</span>&nbsp;
+                    <div className="flex ">
+                      <p className="text-[9.399px] font-semibold min-w-[65px]">
+                        Name
                       </p>
-                      <p className="text-[9.399px]   font-bold">{data?.Name}</p>
+                      {/* <p className="text-[9.399px]   font-bold">{data?.Name}</p> */}
+                      <div className="flex ">
+                        <p className="text-[9.399px] -ml-[5px] font-semibold">
+                          :&nbsp;
+                        </p>
+                        <p className="text-[9.399px] font-bold  leading-normal -space-y-4">
+                          {data?.Name}
+                        </p>
+                      </div>
                     </div>
                     {/* <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Department</p>
@@ -95,11 +109,12 @@ const CardPage = () => {
                       <p className="text-[9.399px] font-medium min-w-[65px]">
                         Department
                       </p>
+
                       <div className="flex ">
                         <p className="text-[9.399px] -ml-[5px] font-medium">
                           :&nbsp;
                         </p>
-                        <p className="text-[9.399px] font-medium leading-normal -space-y-4">
+                        <p className="text-[9.399px]  leading-normal -space-y-4">
                           {data?.Current_Department}
                         </p>
                       </div>
@@ -135,7 +150,7 @@ const CardPage = () => {
                 </div>
               </div>
 
-              <div className=" w-[60.6288px]">
+              <div className="absolute -bottom-1 w-[60.6288px]">
                 {/* <h1 className="text-[5.666px]">fardin</h1> */}
                 <div className="  ">
                   <img

@@ -9,7 +9,6 @@ import AddStudent from "./pages/AddStudent.jsx";
 import AdminLogin from "./pages/AdminLogin.jsx";
 import BackSide from "./pages/BackSide.jsx";
 import CardPage from "./pages/CardPage.jsx";
-import FrontPart from "./pages/FrontPart.jsx";
 import Login from "./pages/Login.jsx";
 import CombinedCardPrint from "./pages/PrintBoth.jsx";
 import StudentDetails from "./pages/StudentDetails.jsx";
@@ -38,11 +37,11 @@ const router = createBrowserRouter([
     element: <CardPage />,
     loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
   },
-  {
-    path: "/print-frontside/:id",
-    element: <FrontPart />,
-    loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
-  },
+  // {
+  //   path: "/print-frontside/:id",
+  //   element: <FrontPart />,
+  //   loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
+  // },
   {
     path: "/print-backside/:id",
     element: <BackSide />,

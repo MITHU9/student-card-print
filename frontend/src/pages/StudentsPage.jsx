@@ -652,7 +652,7 @@ const AllStudents = () => {
               </button>
             </div>
 
-            <div className="flex w-1/2 justify-between  gap-2 mt-4">
+            {/* <div className="flex w-1/2 justify-between  gap-2 mt-4">
               <Link
                 to={`/print-frontside/${student?._id}`}
                 onClick={(e) => {
@@ -665,7 +665,7 @@ const AllStudents = () => {
               >
                 Print Front
               </Link>
-            </div>
+            </div> */}
           </div>
           <div>
             <Link

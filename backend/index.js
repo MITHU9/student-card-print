@@ -25,7 +25,8 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "https://student-library-card-pust.netlify.app",
+      // "https://student-library-card-pust.netlify.app",
+      "http://103.121.143.52",
     ],
     credentials: true,
   })

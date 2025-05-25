@@ -53,7 +53,7 @@ export default function BackSIde() {
 
   //console.log(issueDate);
 
-  const studenturl = `https://student-library-card-pust.netlify.app/student-details/${id}`;
+  const studenturl = `http://103.121.143.52/student-details/${id}`;
   return (
     <div>
       <div>

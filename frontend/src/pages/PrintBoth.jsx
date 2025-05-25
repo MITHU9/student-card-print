@@ -313,7 +313,7 @@ const CombinedCardPrint = () => {
             <div className="flex justify-center items-center mt-2 border border-dashed h-[45.5424px] w-[45.5808px] bg-[#CEB8B0] mx-auto p-[2px]">
               {backData && (
                 <QRCode
-                  value={`https://student-library-card-pust.netlify.app/student-details/${id}`}
+                  value={`http://103.121.143.52/student-details/${id}`}
                   bgColor="#CEB8B0"
                   className="w-full h-full"
                 />

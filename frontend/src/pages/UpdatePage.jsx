@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { remote } from "../config/config";
-// const imageHostingApi = `https://api.imgbb.com/1/upload?key=4276e99e16c8c70522c44d4e9b5eb595`;
-const imageHostingApi = `https://api.imgbb.com/1/upload?key=aaa3602bfadd7d7abefeceed90bf5997`;
 
 const UpdatePage = () => {
   const { id } = useParams();
@@ -14,6 +12,8 @@ const UpdatePage = () => {
   const [profileImageError, setProfileImageError] = useState("");
 
   const [loading, setLoading] = useState(true);
+
+  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB in bytes
 
   // Fetch student data
   useEffect(() => {
@@ -30,50 +30,29 @@ const UpdatePage = () => {
 
   const handleChange = (e) => {
     const file = e.target.files[0];
-    // console.log("File:", file);
 
     if (file) {
-      const img = new Image();
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        img.onload = () => {
-          const { width, height } = img;
-          if (width > 300 || height > 80) {
-            setImageError("Image dimensions must be 300x80 or less.");
-            setSignature(null);
-          } else {
-            setImageError("");
-            setSignature(file);
-          }
-        };
-        img.src = reader.result;
-      };
-
-      reader.readAsDataURL(file);
+      if (file.size > MAX_FILE_SIZE) {
+        setImageError("Signature image size must be 2MB or less.");
+        setSignature(null);
+      } else {
+        setImageError("");
+        setSignature(file);
+      }
     }
   };
+
   const handleImageUploadChange = (e) => {
     const file = e.target.files[0];
-    console.log("File:", file);
-    if (file) {
-      const img = new Image();
-      const reader = new FileReader();
 
-      reader.onloadend = () => {
-        img.onload = () => {
-          const { width, height } = img;
-          if (width > 300 || height > 300) {
-            setProfileImageError("Image dimensions must be 300x300 or less.");
-            setStudentImage(null);
-          } else {
-            setProfileImageError("");
-            setStudentImage(file);
-          }
-        };
-        img.src = reader.result;
-      };
-      reader.readAsDataURL(file);
+    if (file) {
+      if (file.size > MAX_FILE_SIZE) {
+        setProfileImageError("Student image size must be 2MB or less.");
+        setStudentImage(null);
+      } else {
+        setProfileImageError("");
+        setStudentImage(file);
+      }
     }
   };
 
@@ -93,57 +72,25 @@ const UpdatePage = () => {
     }
 
     try {
-      // Upload student image
-      const studentImgFormData = new FormData();
-      studentImgFormData.append("image", studentImage);
-      const studentImgRes = await fetch(imageHostingApi, {
-        method: "POST",
-        body: studentImgFormData,
+      const formData = new FormData();
+      formData.append("studentImage", studentImage);
+      formData.append("signature", signature);
+
+      const res = await fetch(`${remote}/update-signature/${id}`, {
+        method: "PATCH",
+        body: formData,
       });
-      const studentImgData = await studentImgRes.json();
-      const studentImageUrl = studentImgData?.data?.url;
 
-      // Upload signature image
-      const signatureFormData = new FormData();
-      signatureFormData.append("image", signature);
-      const signatureRes = await fetch(imageHostingApi, {
-        method: "POST",
-        body: signatureFormData,
-      });
-      const signatureData = await signatureRes.json();
-      const signatureUrl = signatureData?.data?.url;
-
-      if (signatureUrl && studentImageUrl) {
-        const payload = {
-          studentImage: studentImageUrl,
-          signature: signatureUrl,
-        };
-
-        console.log("Payload to send:", payload);
-
-        const updateRes = await fetch(`${remote}/update-signature/${id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (updateRes.ok) {
-          setFlag(true);
-          setLoading(false);
-          alert("Images uploaded and updated successfully!");
-        } else {
-          alert("Failed to update in database.");
-          setLoading(false);
-        }
+      if (res.ok) {
+        setFlag(true);
+        alert("Images uploaded and updated successfully!");
       } else {
-        alert("Failed to upload both images. Try again.");
-        setLoading(false);
+        alert("Failed to upload images.");
       }
     } catch (err) {
-      console.error("Error:", err);
-      alert("Something went wrong.");
+      console.error("Upload error:", err);
+      alert("Something went wrong while uploading.");
+    } finally {
       setLoading(false);
     }
   };
@@ -263,7 +210,7 @@ const UpdatePage = () => {
           {/* Upload Signature Section */}
           <div className="col-span-2">
             <label className="block text-gray-700">
-              Upload 300x80 or less dimension signature
+              Upload 2MB or less size signature
             </label>
             <input
               onChange={handleChange}
@@ -276,7 +223,7 @@ const UpdatePage = () => {
 
           <div className="col-span-2">
             <label className="block text-gray-700">
-              Upload Student Image (300x300 or less)
+              Upload Student Image (2MB or less size)
             </label>
             <input
               onChange={handleImageUploadChange}

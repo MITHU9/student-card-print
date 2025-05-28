@@ -260,45 +260,6 @@ async function run() {
       res.json(student);
     });
 
-    // Update student signature URL
-    app.patch("/update-signature/:id", async (req, res) => {
-      const id = req.params.id;
-      console.log("ID:", id);
-      const { studentImage, signature } = req.body;
-
-      console.log("Signature URL:", signature);
-      console.log("Student Image URL:", studentImage);
-
-      if (!studentImage || !signature) {
-        return res.status(400).json({ error: "Missing image URLs" });
-      }
-      //console.log("ID:", id);
-      const numID = parseInt(id);
-      const filter = { Registration: numID };
-      // const updateDoc = {
-      //   $set: { signature: signature, studentImage: studentImage },
-      // };
-
-      const result = await studentCollection.updateOne(
-        { Registration: numID },
-        {
-          $set: {
-            signature: signature,
-            picture: studentImage,
-            can_update: false,
-          },
-        }
-      );
-
-      if (result.modifiedCount > 0) {
-        res.json({ message: "Signature updated successfully" });
-      } else {
-        res
-          .status(400)
-          .json({ message: "No changes made. Check the ID again." });
-      }
-    });
-
     //get student information by applicant_id
     app.get("/student/:registration", async (req, res) => {
       const registration = req.params.registration;
@@ -435,7 +396,96 @@ async function run() {
       },
     });
 
+    const imageStorage = new CloudinaryStorage({
+      cloudinary: cloudinary,
+      params: (req, file) => {
+        const commonParams = {
+          resource_type: "image",
+          format: "png",
+          allowed_formats: ["jpg", "png", "jpeg", "gif", "webp", "svg"],
+        };
+
+        if (file.fieldname === "studentImage") {
+          return {
+            ...commonParams,
+            folder: "student_images",
+            transformation: [
+              { width: 300, height: 300, crop: "fill", gravity: "auto" },
+            ],
+          };
+        }
+
+        if (file.fieldname === "signature") {
+          return {
+            ...commonParams,
+            folder: "student_images",
+            transformation: [
+              { width: 300, height: 80, crop: "fill", gravity: "auto" },
+            ],
+          };
+        }
+
+        return commonParams;
+      },
+    });
+
+    const uploadImage = multer({
+      storage: imageStorage,
+      limits: { fileSize: 2 * 1024 * 1024 }, // 2MB max
+    });
+
     const upload = multer({ storage });
+
+    // Update student signature URL
+    app.patch(
+      "/update-signature/:id",
+      uploadImage.fields([
+        { name: "studentImage", maxCount: 1 },
+        { name: "signature", maxCount: 1 },
+      ]),
+      async (req, res) => {
+        try {
+          const id = parseInt(req.params.id);
+          const filter = { Registration: id };
+
+          const studentImageFile = req.files["studentImage"]?.[0];
+          const signatureFile = req.files["signature"]?.[0];
+
+          // console.log("studentImageFile:", studentImageFile);
+          // console.log("signatureFile:", signatureFile);
+
+          if (!studentImageFile || !signatureFile) {
+            return res
+              .status(400)
+              .json({ error: "Both image and signature are required" });
+          }
+
+          const studentImageUrl = studentImageFile.path;
+          const signatureUrl = signatureFile.path;
+
+          const result = await studentCollection.updateOne(filter, {
+            $set: {
+              picture: studentImageUrl,
+              signature: signatureUrl,
+              can_update: false,
+            },
+          });
+
+          if (result.modifiedCount > 0) {
+            res.json({
+              message: "Student image and signature updated successfully.",
+            });
+          } else {
+            res
+              .status(400)
+              .json({ message: "No update occurred. Check student ID." });
+          }
+        } catch (err) {
+          console.error("Error updating student:", err);
+          res.status(500).json({ error: "Server error" });
+        }
+      }
+    );
 
     // CSV Upload Route
     app.post(

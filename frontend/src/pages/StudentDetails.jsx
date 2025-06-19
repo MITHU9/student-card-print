@@ -3,22 +3,21 @@ import { useLoaderData } from "react-router-dom";
 const StudentDetails = () => {
   const data = useLoaderData();
 
-  //console.log(data);
+  console.log(data);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
       <div className="bg-white shadow-lg rounded-2xl p-6 max-w-lg w-full">
         <div className="flex flex-col items-center">
           <img
-            src={"/sample.jpg"}
+            src={data?.picture}
             alt={data?.Name}
             className="w-32 h-32 rounded-full border-4 border-blue-500 shadow-lg"
           />
           <h2 className="text-xl font-semibold mt-4">{data?.Name}</h2>
-          {/* <p className="text-gray-600">
-            {data?.Current_Department} (Dept: {data?.Dept?.Code})
-          </p> */}
+          <p className="text-gray-600">Dept: {data?.Current_Department}</p>
           <p className="text-gray-600">Roll: {data?.Roll}</p>
+          <p className="text-gray-600">Session: {data?.session}</p>
         </div>
         <div className="mt-4 space-y-2 text-sm text-gray-700">
           {/* <p>

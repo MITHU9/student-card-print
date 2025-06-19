@@ -37,11 +37,7 @@ const router = createBrowserRouter([
     element: <CardPage />,
     loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
   },
-  // {
-  //   path: "/print-frontside/:id",
-  //   element: <FrontPart />,
-  //   loader: async ({ params }) => fetch(`${remote}/print-preview/${params.id}`),
-  // },
+
   {
     path: "/print-backside/:id",
     element: <BackSide />,

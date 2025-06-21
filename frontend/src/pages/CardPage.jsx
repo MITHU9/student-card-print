@@ -155,7 +155,7 @@ const CardPage = () => {
                 <div className="  ">
                   <img
                     src={data?.signature || "/signature.png"}
-                    className="w-[52px] h-[15px] mb-[2px] object-fill "
+                    className="w-14 h-[15px] mb-[2px] object-contain "
                   />
                 </div>
                 <hr className="w-14" />

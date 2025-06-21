@@ -187,113 +187,147 @@ const CombinedCardPrint = () => {
             ref={frontPrintRef}
             className="print-area  bg-white h-[204.05px] w-[324px] shadow-xl box-border"
           >
-            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[26.56px]">
+            {/* {JSON.stringify(data)} */}
+            <div className="bg-[#CEB8B0] text-center flex items-center py-2 gap-1 h-[51.59px]  pl-[16.56px]">
               {/* pl-[26.56px] */}
               <img
                 src="/PUST_Logo.svg"
                 alt="logo"
                 className="w-[23.712px] h-[32.352px]"
               />
-              <h2 className="text-[9.79px] mt-1 font-bold text-[#783631]">
+              <h2 className="text-[9.79px] mt-1 font-bold text-[#6A0000]">
                 PABNA UNIVERSITY OF SCIENCE AND TECHNOLOGY
               </h2>
+              {/* text-[9.79px] */}
             </div>
-            <div className="flex bg-[#fff6e2]/59  items-center pl-[26.56px] h-[118.26px]">
-              <div className=" ">
-                <img
-                  src={frontData?.picture}
-                  alt="St"
-                  className="h-[68.28px] w-[60.28px]"
-                />
-              </div>
-              {/* h-[64.0512px]  w-[51.6288px]*/}
-              <div className="pl-[20.80px] pr-2">
-                <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
-                  Student Identity Card
-                  <hr className="w-[118px]" />
-                </h2>
-                <div className="-space-y-[3px] text-[9.39px]">
-                  <div className="flex items-center">
-                    <p className="text-[9.399px] font-semibold">
-                      Name <span className=" ml-[31.37px]">:</span> &nbsp;
-                    </p>
-                    <p className="text-[9.399px]   font-bold">
-                      {frontData?.Name}
-                    </p>
-                  </div>
-                  {/* <div className="flex items-center">
+            <div className="flex flex-col relative justify-center bg-white h-[118.26px] pl-[16.56px]">
+              {/* bg-[#fff6e2]/59 */}
+              <div
+                className={`${
+                  frontData.Name.length > 25 || frontData?.Dept.Code == 6
+                    ? "flex  items-center -mt-1"
+                    : "flex  items-center -mt-2"
+                }  `}
+              >
+                <div className=" ">
+                  {/* border border-gray-200/50 */}
+                  <img
+                    src={frontData?.picture}
+                    alt="St"
+                    className="h-[62.28px] w-[60.28px] mt-1"
+                  />
+                </div>
+                {/* h-[64.0512px]  w-[51.6288px]*/}
+                <div className="pl-[16.56px] ">
+                  {/* pl-[20.80px] */}
+                  <h2 className="uppercase -mt-3 text-[9.26px] font-bold mb-[2px]">
+                    Student Identity Card
+                    <hr className="w-[118px]" />
+                  </h2>
+                  <div className="-space-y-[3px] text-[9.39px]">
+                    <div className="flex ">
+                      <p className="text-[9.399px] font-semibold min-w-[65px]">
+                        Name
+                      </p>
+                      {/* <p className="text-[9.399px]   font-bold">{data?.Name}</p> */}
+                      <div className="flex ">
+                        <p className="text-[9.399px] -ml-[5px] font-semibold">
+                          :&nbsp;
+                        </p>
+                        <p className="text-[9.399px] font-bold  leading-normal -space-y-4">
+                          {frontData?.Name}
+                        </p>
+                      </div>
+                    </div>
+                    {/* <div className="flex items-center">
                     <p className="text-[9.399px] font-medium">Department</p>
                     <p className="ml-[10.8px] text-[9.399px] font-medium">
                       : &nbsp;{data?.Current_Department}
                     </p>
                   </div> */}
-                  <div className="flex items-start">
-                    <p className="text-[9.399px] font-medium min-w-[65px]">
-                      Department
-                    </p>
-                    <div className="flex ">
-                      <p className="text-[9.399px] -ml-[5px] font-medium">
-                        :&nbsp;
+                    <div className="flex items-start">
+                      <p className="text-[9.399px] font-medium min-w-[65px]">
+                        Department
                       </p>
-                      <p className="text-[9.399px] font-medium -space-y-4">
-                        {frontData?.Current_Department}
+
+                      <div className="flex ">
+                        <p className="text-[9.399px] -ml-[5px] font-medium">
+                          :&nbsp;
+                        </p>
+                        <p className="text-[9.399px]  leading-normal -space-y-4">
+                          {frontData?.Current_Department}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center">
+                      <p className="text-[9.399px]">Roll No.</p>
+                      <p className="ml-[26.4px] text-[9.399px] font-medium">
+                        :&nbsp;{frontData?.Roll}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <p className="text-[9.399px] font-medium">Session</p>
+                      <p className="ml-[26.68px] text-[9.399px] font-medium">
+                        :&nbsp;2023-2024
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <p className="text-[9.399px] text-[#6A0000] font-semibold">
+                        Blood Group
+                      </p>
+                      <p className="text-[9px] text-[#6A0000] ml-[3px] font-semibold">
+                        :&nbsp;{frontData?.blood_group}
+                      </p>
+                    </div>
+                    <div className="flex items-center ">
+                      <p className="text-[9.399px] font-semibold">Emergency</p>
+                      <p className="text-[9.399px] ml-[10px] font-semibold">
+                        :&nbsp;+880{frontData?.phone}
                       </p>
                     </div>
                   </div>
-
-                  <div className="flex items-center">
-                    <p className="text-[9.399px]">Roll No.</p>
-                    <p className="ml-[26.4px] text-[9.399px] font-medium">
-                      : &nbsp;{frontData?.Roll}
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <p className="text-[9.399px] font-medium">Session</p>
-                    <p className="ml-[26.68px] text-[9.399px] font-medium">
-                      : &nbsp;2023-2024
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <p className="text-[9.399px] text-[#783631] font-semibold">
-                      Blood Group
-                    </p>
-                    <p className="text-[9px] text-[#783631] ml-[3px] font-semibold">
-                      : &nbsp;{frontData?.blood_group}
-                    </p>
-                  </div>
-                  <div className="flex items-center ">
-                    <p className="text-[9.399px] font-semibold">Emergency</p>
-                    <p className="text-[9.399px] ml-[10px] font-semibold">
-                      : &nbsp;+880{frontData?.phone}
-                    </p>
-                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* bottom */}
-            <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] px-[26.56px]">
-              <div className=" w-[60.6288px]">
+              <div className="absolute -bottom-1 w-[60.6288px]">
                 {/* <h1 className="text-[5.666px]">fardin</h1> */}
-                <img
-                  src={frontData?.signature || "/signature.png"}
-                  className="w-[52px] h-[12px] mb-[2px] object-cover "
-                />
+                <div className="  ">
+                  <img
+                    src={frontData?.signature || "/signature.png"}
+                    className="w-14 h-[15px] mb-[2px] object-fill "
+                  />
+                </div>
                 <hr className="w-14" />
                 <p className="text-[5.666px] w-full font-semibold mb-1">
                   Signature of Student
                 </p>
               </div>
+            </div>
 
+            {/* bottom */}
+            <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] pl-[16.56px]">
               <div>
                 <img
-                  src={frontData?.signature || "/provostDemo.png"}
-                  className="w-[52px] h-[12px] mb-[2px] object-cover "
+                  src={"/signature.png"}
+                  className="w-[52px] h-[15px] mb-[2px] object-fill "
                 />
                 <hr className="w-[56px]" />
                 <p className="text-[5.666px] font-semibold mb-1">
                   Signature of Provost
                 </p>
+              </div>
+
+              <div className=" w-[60.6288px]">
+                {/* <h1 className="text-[5.666px]">fardin</h1> */}
+                {/* <img
+                  src={data?.signature || "/signature.png"}
+                  className="w-[52px] h-[12px] mb-[2px] object-cover "
+                />
+                <hr className="w-14" />
+                <p className="text-[5.666px] w-full font-semibold mb-1">
+                  Signature of Student
+                </p> */}
               </div>
             </div>
           </div>

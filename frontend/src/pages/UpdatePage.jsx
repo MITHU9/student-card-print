@@ -10,6 +10,7 @@ const UpdatePage = () => {
   const [studentImage, setStudentImage] = useState(null);
   const [imageError, setImageError] = useState("");
   const [profileImageError, setProfileImageError] = useState("");
+  // const [hallName, setHallName] = useState("");
 
   const [loading, setLoading] = useState(true);
 
@@ -75,6 +76,7 @@ const UpdatePage = () => {
       const formData = new FormData();
       formData.append("studentImage", studentImage);
       formData.append("signature", signature);
+      // formData.append("hall_name", hallName);
 
       const res = await fetch(`${remote}/update-signature/${id}`, {
         method: "PATCH",
@@ -206,23 +208,10 @@ const UpdatePage = () => {
               className="w-full px-4 py-2 border rounded-lg bg-gray-200"
             />
           </div>
-
-          {/* Upload Signature Section */}
-          <div className="col-span-2">
-            <label className="block text-gray-700">
-              Upload 2MB or less size signature
-            </label>
-            <input
-              onChange={handleChange}
-              type="file"
-              className="w-full px-4 py-2 border rounded-lg"
-            />
-            {imageError && <p className="text-red-500">{imageError}</p>}
-          </div>
           {/* upload student image */}
 
           <div className="col-span-2">
-            <label className="block text-gray-700">
+            <label className="block text-red-600 ">
               Upload Student Image (2MB or less size)
             </label>
             <input
@@ -234,6 +223,50 @@ const UpdatePage = () => {
               <p className="text-red-500">{profileImageError}</p>
             )}
           </div>
+
+          {/* Upload Signature Section */}
+          <div className="col-span-2">
+            <label className="block text-red-600 ">
+              Upload 2MB or less size signature
+            </label>
+            <input
+              onChange={handleChange}
+              type="file"
+              className="w-full px-4 py-2 border rounded-lg"
+            />
+            {imageError && <p className="text-red-500">{imageError}</p>}
+          </div>
+
+          {/* select hall name ,if student is male then show male hall and if student is female then show another hall*/}
+          {/* {JSON.stringify(student)} */}
+          {/* <div className="col-span-2">
+            <label className="block text-gray-700">Select Hall Name</label>
+            <select
+              className="w-full px-4 py-2 border rounded-lg"
+              onChange={(e) => setHallName(e.target.value)}
+              disabled={!student?.can_update && student?.can_update === false}
+            >
+              <option value="">
+                {student?.Gender === "MALE"
+                  ? "Select a Male Hall"
+                  : student?.Gender === "FEMALE"
+                  ? "Select a Female Hall"
+                  : "Select Hall"}
+              </option>
+              {student?.Gender === "MALE" && (
+                <>
+                  <option value="1">ছাত্র হল ১</option>
+                  <option value="2">ছাত্র হল ২</option>
+                </>
+              )}
+              {student?.Gender === "FEMALE" && (
+                <>
+                  <option value="1">ছাত্রী হল ১</option>
+                  <option value="2">ছাত্রী হল ২</option>
+                </>
+              )}
+            </select>
+          </div> */}
 
           <div className="col-span-2">
             <button

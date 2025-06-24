@@ -1,10 +1,16 @@
 import { ChevronLeft } from "lucide-react";
 import { useRef } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import female1 from "../assets/female1.png";
+import male1 from "../assets/male1.png";
 const CardPage = () => {
-  const data = useLoaderData();
+  // const data = useLoaderData();
   const printRef1 = useRef();
   // const printRef2 = useRef();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const data = location.state?.data;
+  console.log(data);
 
   const handlePrint = (printRef) => {
     const printContent = printRef.current;
@@ -20,10 +26,10 @@ const CardPage = () => {
     <div>
       <div>
         <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800 absolute top-10 left-20 cursor-pointer">
-          <Link to="/home/card-print" className="flex items-center">
+          <button onClick={() => navigate(-1)} className="flex items-center">
             <ChevronLeft />
             Back
-          </Link>
+          </button>
         </button>
       </div>
       <div className="flex justify-center mt-5">
@@ -169,7 +175,21 @@ const CardPage = () => {
             <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] pl-[16.56px]">
               <div>
                 <img
-                  src={"/signature.png"}
+                  src={
+                    data?.Gender === "MALE"
+                      ? data?.hall_name === "1"
+                        ? male1
+                        : data?.hall_name === "2"
+                        ? "/provost-signature-ahsan2.png"
+                        : ""
+                      : data?.Gender === "FEMALE"
+                      ? data?.hall_name === "1"
+                        ? female1
+                        : data?.hall_name === "2"
+                        ? "/provost-signature-jahanara2.png"
+                        : ""
+                      : ""
+                  }
                   className="w-[52px] h-[15px] mb-[2px] object-fill "
                 />
                 <hr className="w-[56px]" />

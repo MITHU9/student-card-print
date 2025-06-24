@@ -347,6 +347,40 @@ const AllStudents = () => {
                     name="session"
                     onChange={handleChange}
                   />
+
+                  <div className="col-span-2">
+                    <label className="block text-gray-700">
+                      Select Hall Name
+                    </label>
+                    <select
+                      className="w-full px-4 py-2 border rounded-lg"
+                      value={selectedStudent.hall_name || ""}
+                      name="hall_name"
+                      onChange={handleChange}
+                    >
+                      <option value="">
+                        {student?.Gender === "MALE"
+                          ? "Select a Male Hall"
+                          : student?.Gender === "FEMALE"
+                          ? "Select a Female Hall"
+                          : "Select Hall"}
+                      </option>
+                      {student?.Gender === "MALE" && (
+                        <>
+                          {/* <option value="">Select a hall</option> */}
+                          <option value="1">ছাত্র হল ১</option>
+                          {/* <option value="2">ছাত্র হল ২</option> */}
+                        </>
+                      )}
+                      {student?.Gender === "FEMALE" && (
+                        <>
+                          <option value="1">ছাত্রী হল ১</option>
+                          {/* <option value="2">ছাত্রী হল ২</option> */}
+                        </>
+                      )}
+                    </select>
+                  </div>
+
                   <button
                     onClick={() => {
                       setModal(false);
@@ -617,7 +651,7 @@ const AllStudents = () => {
         <div className="mt-12">
           <div className="flex items-end flex-col">
             <div className="flex w-1/2 justify-between gap-2  mt-4 ">
-              <Link
+              {/* <Link
                 to={`/print-preview/${student?._id}`}
                 onClick={(e) => {
                   if (!student) {
@@ -628,8 +662,20 @@ const AllStudents = () => {
                 className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"
               >
                 Print Preview
+              </Link> */}
+              <Link
+                to={`/print-preview/${student?._id}`}
+                state={{ data: student }}
+                onClick={(e) => {
+                  if (!student) {
+                    e.preventDefault();
+                    alert("Please select a student.");
+                  }
+                }}
+                className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"
+              >
+                Print Preview
               </Link>
-
               <button
                 onClick={() => handleEdit(student)}
                 className="border cursor-pointer font-semibold px-8 py-1 bg-green-600"

@@ -124,7 +124,7 @@ async function run() {
       res.status(200).send({ message: "Login successful" });
     });
 
-    //admin register API
+    // //admin register API
     // app.post("/admin-register", async (req, res) => {
     //   const { username, password } = req.body;
 
@@ -450,6 +450,7 @@ async function run() {
 
           const studentImageFile = req.files["studentImage"]?.[0];
           const signatureFile = req.files["signature"]?.[0];
+          // const hallName = req.body.hall_name;
 
           // console.log("studentImageFile:", studentImageFile);
           // console.log("signatureFile:", signatureFile);
@@ -459,6 +460,12 @@ async function run() {
               .status(400)
               .json({ error: "Both image and signature are required" });
           }
+          // Check if hallName is provided
+          // if (!hallName) {
+          //   return res
+          //     .status(400)
+          //     .json({ error: "Hall name is required for the update" });
+          // }
 
           const studentImageUrl = studentImageFile.path;
           const signatureUrl = signatureFile.path;
@@ -467,6 +474,7 @@ async function run() {
             $set: {
               picture: studentImageUrl,
               signature: signatureUrl,
+              // hall_name: hallName,
               can_update: false,
             },
           });
@@ -529,6 +537,18 @@ async function run() {
                 nationality: data.nationality,
                 phone: data.phone,
                 session: data.session,
+                hall_name: String(data.hall_name),
+
+                p_house_road_village: data.p_house_road_village,
+                p_post_office: data.p_post_office,
+                p_post_code: data.p_post_code,
+                p_upazila: data.p_upazila,
+                p_district: data.p_district,
+                pr_house_road_village: data.pr_house_road_village,
+                pr_post_office: data.pr_post_office,
+                pr_post_code: data.pr_post_code,
+                pr_upazilla: data.pr_upazilla,
+                pr_district: data.pr_district,
               };
               results.push(student);
             })

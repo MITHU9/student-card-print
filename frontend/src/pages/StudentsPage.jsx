@@ -27,12 +27,12 @@ const AllStudents = () => {
     axiosSecure
       .patch(`${remote}/toggle-update/${id}`, {})
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         alert("Updated successfully");
         refetch();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("Something went wrong");
       });
   };
@@ -46,12 +46,12 @@ const AllStudents = () => {
     axiosSecure
       .patch(`${remote}/${id}`, {})
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         alert("Print Completed");
         refetch();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("Something went wrong");
       });
   };
@@ -69,12 +69,12 @@ const AllStudents = () => {
     axiosSecure
       .delete(`${remote}/delete-student/${id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         alert("Deleted successfully");
         refetch();
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("Something went wrong");
       });
   };
@@ -103,13 +103,13 @@ const AllStudents = () => {
     axiosSecure
       .put(`${remote}/update-student/${selectedStudent._id}`, selectedStudent)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         alert("Updated successfully");
         refetch();
         setModal(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
         alert("Something went wrong");
       });
   };

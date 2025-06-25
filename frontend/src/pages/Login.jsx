@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import { FiEyeOff, FiEye } from "react-icons/fi";
 import { remote } from "../config/config";
 
 const Login = () => {
@@ -31,14 +31,11 @@ const Login = () => {
     axios
       .post(`${remote}/login`, data)
       .then((res) => {
-        console.log(res);
-
         if (res.status === 200) {
           navigate(`/update-info/${registration}`);
         }
       })
       .catch((err) => {
-        console.log(err);
         alert("Invalid credentials! Please use correct roll and registration");
       });
   };

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import { remote } from "../config/config";
-
 const UpdatePage = () => {
   const { id } = useParams();
   const [flag, setFlag] = useState(false);
@@ -10,6 +10,7 @@ const UpdatePage = () => {
   const [studentImage, setStudentImage] = useState(null);
   const [imageError, setImageError] = useState("");
   const [profileImageError, setProfileImageError] = useState("");
+
   // const [hallName, setHallName] = useState("");
 
   const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ const UpdatePage = () => {
         setLoading(false);
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   }, [id, flag]);
 
@@ -85,7 +86,7 @@ const UpdatePage = () => {
 
       if (res.ok) {
         setFlag(true);
-        alert("Images uploaded and updated successfully!");
+        toast.success("Images uploaded successfully!");
       } else {
         alert("Failed to upload images.");
       }
@@ -211,8 +212,9 @@ const UpdatePage = () => {
           {/* upload student image */}
 
           <div className="col-span-2">
-            <label className="block text-red-600 ">
-              Upload Student Image (2MB or less size)
+            <label className="block mb-1.5 ">
+              Please upload your image <strong>(max 1 MB)</strong> with a solid
+              background (if possible)
             </label>
             <input
               onChange={handleImageUploadChange}
@@ -226,8 +228,25 @@ const UpdatePage = () => {
 
           {/* Upload Signature Section */}
           <div className="col-span-2">
-            <label className="block text-red-600 ">
-              Upload 2MB or less size signature
+            <label className="block mb-1.5 ">
+              Please upload your signature <strong>(max 1 MB)</strong> and
+              remove the background if possible (e.g., using free tools like{" "}
+              <a
+                className="underline text-purple-700"
+                target="_blank"
+                href="https://www.remove.bg/upload"
+              >
+                www.remove.bg
+              </a>{" "}
+              or{" "}
+              <a
+                className="underline text-purple-700"
+                target="_blank"
+                href="https://clipdrop.co/remove-background"
+              >
+                https://clipdrop.co/remove-background
+              </a>{" "}
+              )
             </label>
             <input
               onChange={handleChange}

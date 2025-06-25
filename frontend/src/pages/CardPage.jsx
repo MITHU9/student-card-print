@@ -10,7 +10,7 @@ const CardPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const data = location.state?.data;
-  console.log(data);
+  // console.log(data);
 
   const handlePrint = (printRef) => {
     const printContent = printRef.current;
@@ -190,7 +190,7 @@ const CardPage = () => {
                         : ""
                       : ""
                   }
-                  className="w-[52px] h-[15px] mb-[2px] object-fill "
+                  className="w-[52px] h-[15px] mb-[2px] object-cover "
                 />
                 <hr className="w-[56px]" />
                 <p className="text-[5.666px] font-semibold mb-1">

@@ -4,8 +4,9 @@ import { IoIosCall } from "react-icons/io";
 import { MdEmail } from "react-icons/md";
 import QRCode from "react-qr-code";
 import { Link, useLoaderData, useParams } from "react-router-dom";
+import female1 from "../assets/female1.png";
+import male1 from "../assets/male1.png";
 import { remote } from "../config/config";
-
 const CombinedCardPrint = () => {
   const frontPrintRef = useRef();
   const backPrintRef = useRef();
@@ -309,8 +310,22 @@ const CombinedCardPrint = () => {
             <div className="bg-[#CEB8B0] pt-2 text-left flex justify-between items-center   h-[34.20px] pl-[16.56px]">
               <div>
                 <img
-                  src={"/signature.png"}
-                  className="w-[52px] h-[15px] mb-[2px] object-fill "
+                  src={
+                    frontData?.Gender === "MALE"
+                      ? frontData?.hall_name === "1"
+                        ? male1
+                        : frontData?.hall_name === "2"
+                        ? "/provost-signature-ahsan2.png"
+                        : ""
+                      : frontData?.Gender === "FEMALE"
+                      ? frontData?.hall_name === "1"
+                        ? female1
+                        : frontData?.hall_name === "2"
+                        ? "/provost-signature-jahanara2.png"
+                        : ""
+                      : ""
+                  }
+                  className="w-[52px] h-[15px] mb-[2px] object-cover "
                 />
                 <hr className="w-[56px]" />
                 <p className="text-[5.666px] font-semibold mb-1">

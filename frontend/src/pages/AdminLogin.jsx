@@ -3,12 +3,15 @@ import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import { remote } from "../config/config";
+import { useAuth } from "../hooks/useAuth";
 
 export default function AdminLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const { setUser } = useAuth();
 
   const [loading, setLoading] = useState(false);
 
@@ -46,6 +49,8 @@ export default function AdminLogin() {
         if (jwtRes.status === 200) {
           await new Promise((resolve) => setTimeout(resolve, 300));
         }
+        // Set user in context
+        setUser(loginRes.data.role);
         setLoading(false);
         navigate("/home");
       }

@@ -15,6 +15,7 @@ import CombinedCardPrint from "./pages/PrintBoth.jsx";
 import StudentDetails from "./pages/StudentDetails.jsx";
 import AllStudents from "./pages/StudentsPage.jsx";
 import UpdatePage from "./pages/UpdatePage.jsx";
+import { AuthProvider } from "./context/AuthContext.jsx";
 //const local = "https://library-card-backend.vercel.app";
 //const remote = "https://library-card-backend.vercel.app";
 
@@ -71,8 +72,10 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster position="top-right" />
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <Toaster position="top-right" />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );

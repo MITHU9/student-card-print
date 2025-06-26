@@ -105,6 +105,21 @@ async function run() {
       }
     };
 
+    //verify admin and moderator
+    const verifyAdminAndModerator = async (req, res, next) => {
+      const userName = req.user.username;
+
+      const user = await userCollection.findOne({ username: userName });
+
+      if (user.role === "admin" || user.role === "moderator") {
+        next();
+      } else {
+        return res
+          .status(401)
+          .send({ message: "Access Denied! unauthorized user" });
+      }
+    };
+
     //admin login API
     app.post("/admin-login", async (req, res) => {
       const { username, password } = req.body;
@@ -121,12 +136,26 @@ async function run() {
         return res.status(400).send({ message: "Invalid credentials" });
       }
 
-      res.status(200).send({ message: "Login successful" });
+      res.status(200).json({
+        message: "Login successful",
+        role: user.role,
+      });
     });
 
-    // //admin register API
+    //get current user using cookie
+    app.get("/current-user", verifyToken, async (req, res) => {
+      const userName = req.user.username;
+
+      const user = await userCollection.findOne({ username: userName });
+
+      res.json(user.role);
+    });
+
+    //admin register API
     // app.post("/admin-register", async (req, res) => {
     //   const { username, password } = req.body;
+
+    //   //console.log(username, password);
 
     //   const user = await userCollection.findOne({ username: username });
 
@@ -149,55 +178,60 @@ async function run() {
     // });
 
     //get all students with query
-    app.get("/students", verifyToken, verifyAdmin, async (req, res) => {
-      const { query, session, department } = req.query;
+    app.get(
+      "/students",
+      verifyToken,
+      verifyAdminAndModerator,
+      async (req, res) => {
+        const { query, session, department } = req.query;
 
-      //console.log(query, session, department);
+        //console.log(query, session, department);
 
-      if (query) {
+        if (query) {
+          const students = await studentCollection
+            .find({
+              Roll: {
+                $regex: query,
+                $options: "i",
+              },
+            })
+            .toArray();
+
+          res.json(students);
+          return;
+        }
+
+        if (session === "all" || department === "all") {
+          if (session === "all" && department === "all") {
+            const students = await studentCollection.find().toArray();
+            res.json(students);
+            return;
+          }
+
+          if (session === "all") {
+            const students = await studentCollection
+              .find({ Current_Department: department })
+              .toArray();
+            res.json(students);
+            return;
+          }
+
+          if (department === "all") {
+            const students = await studentCollection
+              .find({ session: session })
+              .toArray();
+            res.json(students);
+            return;
+          }
+        }
+
         const students = await studentCollection
-          .find({
-            Roll: {
-              $regex: query,
-              $options: "i",
-            },
-          })
+          .find({ session: session, Current_Department: department })
           .toArray();
 
         res.json(students);
-        return;
       }
-
-      if (session === "all" || department === "all") {
-        if (session === "all" && department === "all") {
-          const students = await studentCollection.find().toArray();
-          res.json(students);
-          return;
-        }
-
-        if (session === "all") {
-          const students = await studentCollection
-            .find({ Current_Department: department })
-            .toArray();
-          res.json(students);
-          return;
-        }
-
-        if (department === "all") {
-          const students = await studentCollection
-            .find({ session: session })
-            .toArray();
-          res.json(students);
-          return;
-        }
-      }
-
-      const students = await studentCollection
-        .find({ session: session, Current_Department: department })
-        .toArray();
-
-      res.json(students);
-    });
+    );
 
     //login with applicant_id and admission roll
     app.post("/login", async (req, res) => {
@@ -223,32 +257,42 @@ async function run() {
     });
 
     //get total students
-    app.get("/total-students", verifyToken, verifyAdmin, async (req, res) => {
-      const totalStudents = await studentCollection.estimatedDocumentCount();
+    app.get(
+      "/total-students",
+      verifyToken,
+      verifyAdminAndModerator,
+      async (req, res) => {
+        const totalStudents = await studentCollection.estimatedDocumentCount();
 
-      res.json(totalStudents);
-    });
+        res.json(totalStudents);
+      }
+    );
 
     //get all session in an array
-    app.get("/all-session", verifyToken, verifyAdmin, async (req, res) => {
-      try {
-        const sessions = await studentCollection
-          .aggregate([
-            { $group: { _id: "$session" } },
-            { $project: { _id: 0, session: "$_id" } },
-          ])
-          .toArray(); // Ensure it resolves as an array
+    app.get(
+      "/all-session",
+      verifyToken,
+      verifyAdminAndModerator,
+      async (req, res) => {
+        try {
+          const sessions = await studentCollection
+            .aggregate([
+              { $group: { _id: "$session" } },
+              { $project: { _id: 0, session: "$_id" } },
+            ])
+            .toArray(); // Ensure it resolves as an array
 
-        const sessionArray = sessions.map((s) => s.session);
+          const sessionArray = sessions.map((s) => s.session);
 
-        //console.log(sessionArray, sessions);
+          //console.log(sessionArray, sessions);
 
-        res.json(sessionArray);
-      } catch (error) {
-        console.error("Error fetching sessions:", error);
-        res.status(500).json({ error: "Internal Server Error" });
+          res.json(sessionArray);
+        } catch (error) {
+          console.error("Error fetching sessions:", error);
+          res.status(500).json({ error: "Internal Server Error" });
+        }
       }
-    });
+    );
 
     //get student by id
     app.get("/print-preview/:id", async (req, res) => {
@@ -333,7 +377,7 @@ async function run() {
     app.put(
       "/update-student/:id",
       verifyToken,
-      verifyAdmin,
+      verifyAdminAndModerator,
       async (req, res) => {
         const id = req.params.id;
         let student = req.body;
@@ -357,7 +401,7 @@ async function run() {
     app.patch(
       "/print-complete/:id",
       verifyToken,
-      verifyAdmin,
+      verifyAdminAndModerator,
       async (req, res) => {
         const id = req.params.id;
 
